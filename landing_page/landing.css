@@ -3,8 +3,11 @@
   margin:0;
   font-family: 'Montserrat', sans-serif;
   color: #1a1a1a;
+ scrollbar-width: none;
+ 
  
 }
+
 
 body{
   
@@ -201,6 +204,28 @@ nav{
   }
   .box2{
 display: none;
+  }
+  
+}
+.heading, .button_area, .show_case{
+  
+    animation: 3s pop-up ease-in-out;
+  animation-timing-function: cubic-bezier(0.49, -0.13, 0, 1.26);
+}
+
+
+@keyframes pop-up {
+
+  from{
+    transform: translate(0, 60vh) ;
+    opacity: 0;
+    
+  }
+  to{
+    transform: translate(0, 0);
+    opacity: 1;
+    
+    
   }
   
 }
