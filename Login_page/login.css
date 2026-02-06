@@ -1,0 +1,296 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: cursive;
+  box-sizing: border-box;
+scroll-behavior: none;
+scrollbar-width: none;
+
+
+}
+
+body {
+
+  display: grid;
+  max-width: 95%;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  justify-items: center;
+  align-items: center;
+  min-height: 100dvh;
+ background: linear-gradient(45deg, #8ef6f1, #e6d6d1);
+  padding: 1em;
+  margin: 1em;
+
+
+
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  border: none;
+  height: max-content;
+  padding: 1em;
+  margin: 1em;
+  align-items: center;
+  justify-content: center;
+  gap: 2em;
+  background-color: rgb(246, 229, 229);
+  border-radius: 25px;
+  min-width: 70%;
+box-shadow: 15px 20px 20px 3px grey,
+inset 5px 4px 5px 2px grey;
+
+}
+
+
+h2 {
+  font-size: 2.2rem;
+  margin-top: 1em;
+  margin-bottom: .5em;
+
+}
+
+.form-elements {
+  width: 90%;
+ 
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  gap: 2.5em;
+  
+}
+
+.input-container {
+  position: relative;
+ 
+}
+
+.input-fields {
+
+  padding: 1em;
+  border: 2px solid black;
+  height: 3em;
+  width: 100%;
+  border-radius: 50px;
+outline: none;
+border-color: rgb(126, 86, 86);
+}
+
+.input-lables {
+  position: absolute;
+  left: 1em;
+  top: 8px;
+  opacity: 50%;
+  pointer-events: none;
+  transition: all .2s ease-in-out;
+  background-color: none;
+}
+
+.input-fields:focus ~.input-lables,
+.input-fields:not(:placeholder-shown) ~.input-lables {
+  top: -12px;
+  left: 12px;
+  scale: 0.7;
+  opacity: 100%;
+  border: none;
+  background-color: rgb(246, 229, 229);
+  padding: 0 2px;
+}
+ .input-fields:focus, 
+ .input-fields:not(:placeholder-shown){
+ background-color: rgb(246, 229, 229);
+
+ }
+
+
+
+
+.page-description {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  
+  
+}
+
+h1{
+  font-size: 4rem;
+  white-space: nowrap;
+  font-weight: 1200;
+  font-family: sans-serif;
+}
+
+p {
+  text-align: center;
+  padding: 10px;
+ 
+}
+
+.larger-text{
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.small-text{
+  font-size: 1.7rem;
+  font-weight: lighter;
+}
+.button{
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  height: 4em;
+}
+
+#sbt {
+  border: 2px solid black;
+  background-color: red;
+  border-radius: 50px;
+  width: 100px;
+  height: 40px;
+}
+
+@media(max-width: 59em) {
+  body {
+    grid-template-columns: 1fr;
+    grid-template-rows: 300px 1fr;
+    max-width: 96%;
+  }
+}
+@media(max-width: 40em){
+
+  
+ h1{
+  font-size: 2rem;
+  margin-top: 2em;
+ }
+ .larger-text{
+  font-size: 1.2rem;
+ }
+ .small-text{
+  font-size: 1rem;
+ }
+}
+
+
+
+
+button {
+  display: flex;
+  border: none;
+  background-color: #476EAE;
+  border-radius: 25px;
+  padding: 10px;
+  width: 120px;
+  justify-content: space-evenly;
+  transition: background-image .2s;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+
+}
+
+.text {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-weight: bolder;
+  color: white;
+  letter-spacing: 0.2rem;
+  transition: transform .2s, letter-spacing .2s;
+
+
+}
+
+.icon {
+  color: white;
+  scale: 1.5;
+  position: absolute;
+  margin-top: 3px;
+  opacity: 0;
+  transform: translateX(70px);
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+button:hover,
+button.hold-hover {
+  cursor: pointer;
+  background-image: linear-gradient(45deg, #476EAE, #DC143C);
+
+}
+
+button:hover>.text,
+button.hold-hover>.text {
+  transform: translateX(-20px);
+  cursor: pointer;
+  letter-spacing: normal;
+  font-size: 1rem;
+
+
+}
+
+button:hover>.icon,
+button.hold-hover>.icon {
+  cursor: pointer;
+  transform: translateX(22px);
+  opacity: 1;
+
+
+}
+
+
+@keyframes sendIcon {
+  0% {
+    transform: translateX(25px) scale(1);
+    opacity: 1;
+  }
+
+  20% {
+    transform: translateX(25px) scale(0.6);
+    /* shrink */
+  }
+
+  50% {
+    transform: translateX(25px) scale(1);
+    /* back to normal */
+  }
+
+  100% {
+    transform: translate(80px, -80px) scale(1);
+    /* fly away at 45deg */
+    opacity: 1;
+  }
+
+}
+
+/* When clicked */
+button.clicked>.icon {
+  opacity: 1;
+  animation: sendIcon 2s forwards;
+}
+
+.new-account{
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin-bottom: 1em;
+}
+
+a{
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all .2s ease-in-out;
+
+}
+
+a:hover{
+  cursor: pointer;
+  text-decoration: underline;
+  scale: 1.1;
+}
