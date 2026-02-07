@@ -7,18 +7,19 @@ scroll-behavior: none;
 scrollbar-width: none;
 
 
+
 }
 
 body {
 
   display: grid;
-  max-width: 95%;
+  max-width: 100%;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
   justify-items: center;
   align-items: center;
-  min-height: 100dvh;
- background: linear-gradient(45deg, #8ef6f1, #e6d6d1);
+  min-height: 95dvh;
+ background: linear-gradient(45deg, #0c3635 60%, #5d9383 10%);
   padding: 1em;
   margin: 1em;
 
@@ -36,19 +37,38 @@ body {
   align-items: center;
   justify-content: center;
   gap: 2em;
-  background-color: rgb(246, 229, 229);
+ background: linear-gradient(-135deg, #0c3635 60%, #5d9383 10%);
+position: relative;
   border-radius: 25px;
   min-width: 70%;
-box-shadow: 15px 20px 20px 3px grey,
-inset 5px 4px 5px 2px grey;
+
+
 
 }
 
+.login-container::after, 
+.login-container::before {
+  content: "";
+  width: 101%;
+  height: 101%;
+  position: absolute;
+   background-color: #5d9383;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  border-radius: 25px;
+  z-index: -1;
+}
+
+.login-container::before{
+  filter: blur(20px);
+}
 
 h2 {
   font-size: 2.2rem;
   margin-top: 1em;
   margin-bottom: .5em;
+  color: #f4f4f4;
 
 }
 
@@ -71,12 +91,12 @@ h2 {
 .input-fields {
 
   padding: 1em;
-  border: 2px solid black;
+  border: 2px solid #91dacf;
   height: 3em;
   width: 100%;
   border-radius: 50px;
 outline: none;
-border-color: rgb(126, 86, 86);
+background-color: #f4f4f4;
 }
 
 .input-lables {
@@ -96,15 +116,20 @@ border-color: rgb(126, 86, 86);
   scale: 0.7;
   opacity: 100%;
   border: none;
-  background-color: rgb(246, 229, 229);
+  background-color: #436b62;
   padding: 0 2px;
+  color: white;
 }
  .input-fields:focus, 
  .input-fields:not(:placeholder-shown){
- background-color: rgb(246, 229, 229);
+ background-color: #436b62;
 
  }
 
+ .check-box{
+  margin-left: 10px;
+  color: #f4f4f4;
+ }
 
 
 
@@ -116,7 +141,7 @@ border-color: rgb(126, 86, 86);
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  
+  color: #f4f4f4;
   
 }
 
@@ -145,7 +170,7 @@ p {
 .button{
   display: flex;
   justify-content: center;
-  align-items: end;
+  align-items: start;
   height: 4em;
 }
 
@@ -198,7 +223,7 @@ button {
 }
 
 .text {
-  font-size: 1.2rem;
+  font-size: 1rem;
   text-transform: uppercase;
   font-weight: bolder;
   color: white;
@@ -286,6 +311,7 @@ a{
   font-size: 1rem;
   text-decoration: none;
   transition: all .2s ease-in-out;
+  color: #f4f4f4;
 
 }
 

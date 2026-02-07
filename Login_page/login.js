@@ -3,6 +3,7 @@ const button = document.querySelector("button");
 const icon = button.querySelector(".icon");
 const form = document.querySelector("form");
 
+
 button.addEventListener("click", (e) => {
   e.preventDefault(); // stop immediate form submission
 
@@ -15,3 +16,4 @@ button.addEventListener("click", (e) => {
     form.submit(); // submit the form after animation
   }, { once: true });
 });
+
