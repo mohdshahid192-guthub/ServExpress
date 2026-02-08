@@ -1,0 +1,227 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  
+}
+
+body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  padding: 1em;
+  background-image: url("/assets/img/abstract-geometric-wireframe-background_52683-59421.avif");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: white;
+  backdrop-filter: blur(4px );
+}
+
+.parent-container{
+  border: none;
+  height: 50vh;
+  width: 50em;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
+  justify-items: center;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: white;
+  box-shadow: 2px 2px 30px 5px grey;
+}
+
+
+.left-side, .right-side{
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+align-items: start;
+
+justify-items: center;
+
+
+}
+
+
+form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* visibility: hidden; */
+  justify-content: center;
+  justify-items: center;
+  gap: 1em;
+  width: 80%;
+  grid-row: 1 / 2;
+  grid-column: 1/2;
+  padding: 1em;
+  margin-top: 1em;
+ 
+}
+form input{
+  width: 100%;
+  height: 3em;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  border-bottom: 3px solid #000000;
+  padding: 5px;
+ 
+
+}
+
+
+.note1, .note2 {
+   grid-row: 1 / 2;
+  grid-column: 1/2;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  padding: 1em;
+}
+.note1 h1, .note2 h1{
+  font-size: 3rem;
+}
+.note1 p, .note2 p{
+  font-size: 3vmin;
+  
+}
+.note1 button, .note2 button{
+  width: 8em;
+  height: 3em;
+  border-radius: 50px;
+  font-size: 1rem;
+  margin-top: 1em;
+}
+
+ h2{
+  font-size: 2rem;
+  
+ }
+
+ .note1{
+  transform: translateX(-110%);
+  opacity: 1;
+  transition: all .4s ease-in-out;
+ }
+ form button{
+  margin-top: 1em;
+  width: 100%;
+  height: 2.5em;
+  border-radius: 5px;
+
+ }
+
+ .patch-element{
+  grid-column: 1/2;
+  grid-row: 1/2;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(78, 184, 251);
+  z-index: 0;
+  border-radius:  80px 0 0 80px ;
+ transform: translateX(100%);
+ transition: all .4s ease-in-out;
+ 
+  
+ }
+ .users{
+  transform: translateX(0);
+  
+  opacity: 1;
+ transition: all 0.4s ease-in-out;
+
+ }
+ .professionals{
+  transform: translateX(100%);
+  visibility: hidden;
+  opacity: 0;
+ transition: all 0.4s ease-in-out;
+ }
+
+ .note2{
+   transform: translateX(0);
+  visibility: visible;
+  opacity: 1;
+ transition: all 0.4s ease-in-out;
+ }
+ .note1{
+  transform: translateX(-110%);
+  visibility: hidden;
+  opacity: 0;
+ transition: all 0.4s ease-in-out;
+ z-index: 1;
+ }
+
+.patch-element.active{
+  transform: translateX(0);
+  border-radius: 0 80px 80px 0;
+}
+
+ .users.active{
+  transform: translateX(-110%);
+  visibility: hidden;
+  opacity: 0;
+}
+
+.note1.active{
+  transform: translateX(0);
+  visibility: visible;
+  opacity: 1;
+  transition-delay: .2s;
+}
+
+.note2.active{
+  transform: translateX(100%);
+  visibility: hidden;
+  opacity: 0;
+}
+
+.professionals.active{
+  transform: translate(0);
+  visibility: visible;
+  opacity: 1;
+  transition-delay: .2s;
+}
+
+
+ .patch-element.deactive{
+  transform: translateX(100%);
+  border-radius:  80px 0 0 80px ;
+   
+}
+
+.users.deactive{
+  transform: translateX(0);
+  visibility: visible;
+  opacity: 1;
+  transition-delay: .2s;
+}
+ .note1.deactive{
+  transform: translateX(-110%);
+  visibility: hidden;
+  opacity: 0;
+}
+
+.note2.deactive{
+  transform: translateX(0);
+  visibility: visible;
+  opacity: 1;
+  transition-delay: .2s;
+}
+.professionals.deactive{
+  transform: translate(100%);
+  visibility: hidden;
+  opacity: 0;
+}
+

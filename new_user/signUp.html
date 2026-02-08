@@ -1,51 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="signUp.css">
   <title>ServExpress_Sign-Up</title>
 </head>
+
 <body>
-  <div class="parent_container">
-      <div class="as-user">
-             <form action="submit">
-              <div class="input_container">
-                <input type="text" id="username" required>
-                <label for="username">Username</label>
-              </div>
-              <div class="input_container">
-                <input type="email"  id="email" required>
-                <label for="email">Email</label>
-              </div>
-              <div class="input-container">
-                <input type="password" id="password">
-                <label for="password">Password</label>
-              </div>
-              <div class="button">
-                <button id="signUp" type="submit">Sign Up</button>
-              </div>
-             </form>
+  <div class="parent-container">
+    
+    <div class="left-side">
+      
+        <form action="/action_page.js" method="get" class="users">
+         <h2>Customer</h2>
+          <input type="text" id="username" placeholder="Username">
+
+
+
+          <input type="email" id="email" placeholder="Email" required>
+
+
+
+          <input type="password" id="password" placeholder="Password" required>
+
+
+          
+            <button id="signUp" type="submit">Register</button>
+          
+        </form>
+      
+      
+        <div class="note1">
+          <h1>ServExpress</h1>
+          <p>Create an User Account</p>
+          <button id="user-btn">User</button>
+        </div>
+      <div class="patch-element"></div>
+    </div>
+    <div class="right-side">
+      
+        <form action="/action_page.js" method="get" class="professionals">
+         <h2>Professional</h2>
+          <input type="text" id="username" placeholder="Username">
+
+
+
+          <input type="email" id="email" placeholder="Email" required>
+
+
+
+          <input type="password" id="password" placeholder="Password" required>
+
+
+          
+            <button id="signUp" type="submit">Register</button>
+          
+        </form>
+      
+
+      
+        <div class="note2">
+          <h1>ServExpress</h1>
+          <p>Create a Professional Account</p>
+          <button id="pro-btn">Professional</button>
+        </div>
       </div>
 
-      <div class="as-professional">
-             <form action="submit">
-              <div class="input_container">
-                <input type="text" id="username" required>
-                <label for="username">Username</label>
-              </div>
-              <div class="input_container">
-                <input type="email"  id="email" required>
-                 <label for="email">Email</label>
-              </div>
-              <div class="input-container">
-                <input type="password" id="password">
-                <label for="password">Password</label>
-              </div>
-              <div class="button">
-                <button id="signUp" type="submit">Sign Up</button>
-              </div>
-             </form>
-      </div>
+    
+
+
   </div>
 </body>
+ <script src="signUp.js"></script>
 </html>
