@@ -11,20 +11,36 @@ scrollbar-width: none;
 }
 
 body {
-
+position: relative;
   display: grid;
   max-width: 100%;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
   justify-items: center;
   align-items: center;
-  min-height: 95dvh;
- background: linear-gradient(45deg, #0c3635 60%, #5d9383 10%);
+  min-height: 96dvh;
+background-image: url("/assets/img/abstract-geometric-wireframe-background_52683-59421.avif") ;
+background-size: cover;
+background-repeat: no-repeat;
+background-position: center;
+/* backdrop-filter: blur(8px); */
+background-color: white;
   padding: 1em;
   margin: 1em;
 
+}
 
-
+body::before{
+position: absolute;
+content: " ";
+height: 106%;
+width: 104%;
+top: 50%;
+opacity: 0.8;
+transform: translateY(-50%);
+filter: blur(8px);
+backdrop-filter: blur(10px);
+z-index: -1;
 }
 
 .login-container {
@@ -37,7 +53,10 @@ body {
   align-items: center;
   justify-content: center;
   gap: 2em;
- background: linear-gradient(-135deg, #0c3635 60%, #5d9383 10%);
+background-image: url("/assets/img/abstract-geometric-wireframe-background_52683-59421.avif");
+background-repeat: no-repeat;
+background-size: cover;
+background-position: center;
 position: relative;
   border-radius: 25px;
   min-width: 70%;
@@ -46,13 +65,13 @@ position: relative;
 
 }
 
-.login-container::after, 
+/* .login-container::after,  */
 .login-container::before {
   content: "";
   width: 101%;
   height: 101%;
   position: absolute;
-   background-color: #5d9383;
+  background-color: rgb(61, 60, 60);
   top: 50%;
   transform: translateY(-50%);
   border: none;
@@ -68,7 +87,7 @@ h2 {
   font-size: 2.2rem;
   margin-top: 1em;
   margin-bottom: .5em;
-  color: #f4f4f4;
+ 
 
 }
 
@@ -91,12 +110,13 @@ h2 {
 .input-fields {
 
   padding: 1em;
-  border: 2px solid #91dacf;
+  border: 2px solid #2dbeee;
   height: 3em;
   width: 100%;
   border-radius: 50px;
 outline: none;
 background-color: #f4f4f4;
+
 }
 
 .input-lables {
@@ -111,24 +131,25 @@ background-color: #f4f4f4;
 
 .input-fields:focus ~.input-lables,
 .input-fields:not(:placeholder-shown) ~.input-lables {
-  top: -12px;
-  left: 12px;
-  scale: 0.7;
+  top: -25px;
+  left: 20px;
+  scale: 1;
   opacity: 100%;
   border: none;
-  background-color: #436b62;
+  background-color: none;
   padding: 0 2px;
-  color: white;
+  
+  
 }
  .input-fields:focus, 
  .input-fields:not(:placeholder-shown){
- background-color: #436b62;
+ background-color: #f4f4f4;
 
  }
 
  .check-box{
   margin-left: 10px;
-  color: #f4f4f4;
+
  }
 
 
@@ -141,7 +162,7 @@ background-color: #f4f4f4;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  color: #f4f4f4;
+ 
   
 }
 
@@ -190,7 +211,10 @@ p {
   }
 }
 @media(max-width: 40em){
-
+body{
+  align-items: start;
+  
+}
   
  h1{
   font-size: 2rem;
@@ -222,6 +246,7 @@ button {
 
 }
 
+
 .text {
   font-size: 1rem;
   text-transform: uppercase;
@@ -246,7 +271,8 @@ button {
 button:hover,
 button.hold-hover {
   cursor: pointer;
-  background-image: linear-gradient(45deg, #476EAE, #DC143C);
+  background-image: linear-gradient(45deg, #476EAE, #f11066);
+  
 
 }
 
@@ -311,7 +337,7 @@ a{
   font-size: 1rem;
   text-decoration: none;
   transition: all .2s ease-in-out;
-  color: #f4f4f4;
+  color: black;
 
 }
 
