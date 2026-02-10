@@ -5,6 +5,7 @@ const users = document.querySelectorAll(".users");
 const professional = document.querySelectorAll(".professionals");
 const note1 = document.querySelectorAll(".note1");
 const note2 = document.querySelectorAll(".note2");
+const parent = document.querySelectorAll(".parent-container")
 
 proBtn.addEventListener("click", () => {
   // Professionals mode
@@ -27,6 +28,10 @@ proBtn.addEventListener("click", () => {
   });
 
   note2.forEach(note => {
+    note.classList.add("active");
+    note.classList.remove("deactive");
+     });
+  parent.forEach(note => {
     note.classList.add("active");
     note.classList.remove("deactive");
   });
@@ -55,5 +60,10 @@ userBtn.addEventListener("click", () => {
   note2.forEach(note => {
     note.classList.add("deactive");
     note.classList.remove("active");
-  });
+    });
+     parent.forEach(note => {
+    note.classList.add("active");
+    note.classList.remove("deactive");
+     });
+  
 });

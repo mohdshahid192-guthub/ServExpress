@@ -59,7 +59,8 @@ background-size: cover;
 background-position: center;
 position: relative;
   border-radius: 25px;
-  min-width: 70%;
+  min-width: 80%;
+ 
 
 
 
@@ -167,7 +168,7 @@ background-color: #f4f4f4;
 }
 
 h1{
-  font-size: 4rem;
+  font-size: clamp(14px, calc(5vw +  1rem), 4rem);
   white-space: nowrap;
   font-weight: 1200;
   font-family: sans-serif;
@@ -180,12 +181,12 @@ p {
 }
 
 .larger-text{
-  font-size: 2rem;
+  font-size: clamp(1.2rem, calc(2vw +  1rem), 2rem);
   font-weight: bold;
 }
 
 .small-text{
-  font-size: 1.7rem;
+  font-size: clamp(1rem, calc(1.5vw +  0.5rem), 1.7rem);
   font-weight: lighter;
 }
 .button{
@@ -206,7 +207,7 @@ p {
 @media(max-width: 59em) {
   body {
     grid-template-columns: 1fr;
-    grid-template-rows: 300px 1fr;
+    grid-template-rows: 220px 1fr;
     max-width: 96%;
   }
 }
@@ -216,16 +217,7 @@ body{
   
 }
   
- h1{
-  font-size: 2rem;
-  margin-top: 2em;
- }
- .larger-text{
-  font-size: 1.2rem;
- }
- .small-text{
-  font-size: 1rem;
- }
+
 }
 
 

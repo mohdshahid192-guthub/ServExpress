@@ -21,12 +21,13 @@ body{
 }
 
 .parent-container{
+  flex-shrink: 0;
   border: none;
-  height: 50vh;
-  width: 50em;
+  height: 400px;
+  width: 800px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
+  grid-template-columns: 400px 400px;
+  grid-template-rows: 400px;
   align-items: center;
   justify-items: center;
   border-radius: 20px;
@@ -88,20 +89,46 @@ form input{
   justify-content: center;
   gap: 1em;
   padding: 1em;
+  color: #f4f4f4;
 }
 .note1 h1, .note2 h1{
   font-size: 3rem;
 }
 .note1 p, .note2 p{
-  font-size: 3vmin;
+  font-size: 1.5rem;
   
 }
 .note1 button, .note2 button{
   width: 8em;
-  height: 3em;
+  height: 2.5em;
   border-radius: 50px;
   font-size: 1rem;
   margin-top: 1em;
+  border: 2px solid white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 10px 5px rgb(197, 195, 195);
+  background-color: #079af5;
+   transition: all 0.2s ease-in-out;
+   color: #f4f4f4;
+ 
+}
+.note1 button::after, .note2 button::after{
+  position: absolute;
+  content: " ";
+  inset: 0;
+  height: 180%;
+  width: 120%;
+  top: -50%;
+  left: 0%;
+  background-image: linear-gradient(145deg,#0044ff , #b2d8ee ,#a2b9ff , #21d2e6e7 );
+   z-index: -1;
+   
+}
+.note1 button:hover, .note2 button:hover{
+ background-color: transparent;
+ color: #000000;
+ 
 }
 
  h2{
@@ -116,18 +143,43 @@ form input{
  }
  form button{
   margin-top: 1em;
-  width: 100%;
-  height: 2.5em;
+  width: 60%;
+  height: 3em;
   border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+ z-index: 1;
+ color: #ffffff;
 
  }
 
+ form button::after{
+  position: absolute;
+  content: " ";
+  inset: 0;
+  height: 180%;
+  width: 120%;
+  top: -70%;
+  left: -10%;
+  background-image: linear-gradient( #1b57fc, #4eb8fb,#184ad3, #8d77b7e7);
+   z-index: -1;
+    transition: all .2s ease-in-out;
+ }
+
+ form button:hover::after{
+  transform: translateY(20px);
+}
  .patch-element{
   grid-column: 1/2;
   grid-row: 1/2;
   width: 100%;
   height: 100%;
-  background-color: rgb(78, 184, 251);
+  /* background-color: #4eb8fb; */
+  background-image: linear-gradient(90deg, #4eb8fb,#1b57fc, #7430fbe7);
   z-index: 0;
   border-radius:  80px 0 0 80px ;
  transform: translateX(100%);
@@ -135,6 +187,7 @@ form input{
  
   
  }
+
  .users{
   transform: translateX(0);
   
@@ -225,3 +278,51 @@ form input{
   opacity: 0;
 }
 
+@media(max-width: 53em){
+  .parent-container{
+    width: 400px;
+    height: 500px;
+      background-image: linear-gradient(135deg, #f4f4f4 60%,  #4eb8fb,#1b57fc, #7430fbe7 );
+ grid-template-columns: 400px;
+ grid-template-rows: 500px;
+  }
+  form input{
+    background-color: rgb(252, 255, 255, 0.6);
+  }
+  .note1, .note2{
+    color: #000000;
+  }
+
+  .note1 h1 , .note2 h1  {
+    display: none;
+  }
+
+.left-side{
+  grid-column: 1/2;
+  grid-row: 1/2;
+   display: flex;
+  flex-direction: column;
+  
+  
+}
+.right-side{
+  grid-column: 1/2;
+  grid-row: 1/2;
+ 
+   display: flex;
+  flex-direction: column;
+ 
+}
+.patch-element{
+
+   display: none;
+}
+
+form{
+  width: 100%;
+  padding: 1em;
+  
+}
+
+
+}
