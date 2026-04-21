@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" class="no-scrollbar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/src/style.css">
+  <title>ServExpress -Professionals Home Page</title>
+</head>
+<body class="flex justify-between flex-col items-center w-full h-screen bg-slate-800  gap-12">
+<!-- Navbar start Here -->
+  <nav class="w-full h-14 bg-indigo-300 flex justify-between items-center px-4 pb-1">
+
+    <!-- Logo section -->
+    <div class="text-2xl font-bold text-indigo-800 cursor-pointer" id="logo">
+      ServExpress
+    </div>
+
+    <!-- Navlinks List -->
+    <ul class=" gap-6 font-semibold hidden sm:flex">
+      <li class="hover:scale-[1.1] hover:underline"><a href="#">Services</a></li>
+      <li class="hover:scale-[1.1] hover:underline"><a href="#">About</a></li>
+      <li class="hover:scale-[1.1] hover:underline"><a href="#">Contact</a></li>
+    </ul>
+
+    <!-- login/signUp -->
+    <div class="hidden sm:block w-8 h- overflow-hidden bg-white rounded-full">
+
+      <img class="w-full h-full object-cover hover:bg-indigo-300" src="/src/assets/img/circle-user-solid.png" alt="profile">
+
+    </div>
+    <!-- Menu Button for small Screens -->
+    <div class="sm:hidden cursor-pointer ">
+      <a class="text-4xl" id="menu">&#8801;</a>
+    </div>
+  </nav>
+
+  <!-- sidebar content -->
+   
+    <aside class="w-1/2 h-screen sm:hidden flex-col justify-start items-center fixed top-[49.5%] transform translate-y-[-50%] mt-12 left-1/2 bg-indigo-200 transition-all duration-500 ease-in-out opacity-0 translate-x-full pointer-events-none py-2" id="sidebar">
+    <div class="w-full h-max">
+      <ul class="flex flex-col items-center justify-start gap-4 p-4 text-lg font-semibold text-black">
+      <li class="hover:text-gray-800"><a href="#">Contact</a></li>
+      <li class="hover:text-gray-800"><a href="#">Side Links2</a></li>
+      <li class="hover:text-gray-800"><a href="#">Side Links3</a></li>
+      <li class="hover:text-gray-800"><a href="#">Side Links4</a></li>
+      <li class="hover:text-gray-800"><a href="#">Side Links5</a></li>
+    </ul></div>
+    <div class="w-full h-max flex justify-center pt-4 ">
+      <button class="rounded-2xl border-0 bg-slate-600 w-1/2 h-8 text-white hover:bg-linear-90 from-slate-600 to-slate-300 hover:text-black hover:shadow-sm hover:shadow-black">Log-In</button>
+    </div>
+
+    </aside>
+  
+
+ 
+  
+<div class="flex w-full items-center justify-center flex-col gap-8 px-4 pt-12 md:flex-row md:">
+  <div class="h-64 w-64 rounded-full"><img class="object-cover bg-white rounded-full" src="/src/assets/img/circle-user-solid.png" alt="">
+  </div>
+ 
+<div class="flex flex-col w-full h-full items-center justify-center gap-8">
+  <h1 class="text-4xl font-bold text-white">Name Here</h1>
+
+   <div class="flex flex-col items-center p-4 justify-evenly rounded-4xl w-[90%] h-full bg-white ">
+
+    
+
+   <div class="w-4/5 overflow-hidden text-nowrap text-2xl">
+     <p class="flex gap-2 font-semibold">Email: <span class="text-gray-700">something@gmail.com</span></p>
+   </div>
+   <div class="w-4/5 overflow-hidden text-nowrap text-2xl ">
+    <p class="flex gap-2 font-semibold">DOB: <span class="text-gray-700">SomeValue</span></p>
+   </div>
+   <div class="w-4/5 overflow-hidden text-nowrap text-2xl ">
+    <p class="flex gap-2 font-semibold">Experience: <span class="text-gray-700">* Years</span></p>
+   </div>
+   <div class="w-4/5 overflow-hidden text-nowrap text-2xl ">
+    <p class="flex gap-2 font-semibold">Phone: <span class="text-gray-700">9999999999</span></p>
+   </div>
+   <div class="w-4/5  overflow-hidden text-nowrap text-2xl ">
+    <p class="flex gap-2 font-semibold">Address: <span class="text-gray-700">Street, colony, dist,</span></p>
+   </div>
+ </div>
+  </div>
+</div>
+
+
+ 
+
+
+
+<div class="bg-white w-[90%] h-full rounded-4xl flex flex-col items-center justify-start pb-8 ">
+
+  <div class=" flex justify-between p-4 items-start w-full h-max">
+    <div tabindex="0" class="w-1/3 h-12 flex hover:bg-gray-200 rounded-4xl cursor-pointer items-center justify-center focus:bg-gray-400 " id="requests"><p class=" font-bold text-2xl " >Requests</p>
+    
+    </div>
+    <div tabindex="0" class="w-1/3 h-12 flex hover:bg-gray-200 rounded-4xl cursor-pointer items-center justify-center focus:bg-gray-400 " id="pendings"><p class="font-bold text-2xl" >Pendings</p>
+    
+    </div>
+    <div tabindex="0" class="w-1/3 h-12 flex hover:bg-gray-200 rounded-4xl cursor-pointer items-center justify-center focus:bg-gray-400 " id="history">
+      <p class="font-bold text-2xl">History</p>
+    
+    </div>
+  </div>
+
+<!-- request section list on when toggling requests -->
+<div class="w-full h-full flex flex-col items-center justify-center gap-8 " id="request_section">
+<div class="bg-slate-700 w-[90%] h-20 flex items-center justify-between rounded-4xl px-8">
+<p class="font-bold text-3xl capitalize text-white">username</p>
+<div class="flex gap-4">
+  <button class="w-15 rounded-3xl hover:bg-green-700 h-10 bg-green-500 font-bold border-2 ">&#10003;</button>
+  <button class="w-15 rounded-3xl hover:bg-red-700 h-10 bg-red-500 font-bold border-2 ">&#x2715;</button>
+</div>
+</div>
+</div>
+
+<!-- pending sections on when toggle pending -->
+<div class="w-full h-full flex flex-col items-center justify-center gap-8" id="pending_section">
+<div class="bg-slate-700 w-[90%] h-max flex items-start rounded-4xl px-8 py-4 flex-col">
+<p class="font-bold text-3xl capitalize text-white">username</p>
+<p class=" capitalize text-white">user address comes here</p>
+<p class="font-bold capitalize text-white">+91-999999999</p>
+
+</div>
+</div>
+
+
+<div class="w-full h-full flex flex-col items-center justify-center gap-8" id="history_section">
+<div class="bg-green-500 w-[90%] h-max flex items-start rounded-4xl px-8 py-4 flex-col">
+<p class="font-bold text-3xl capitalize ">username</p>
+<p class=" capitalize text-gray-800">user address comes here</p>
+<p class="font-bold">+91-999999999</p>
+
+</div>
+</div>
+
+
+  </div>
+</body>
+<script type="module" src="/scripts/pHome.js"></script>
+</html>

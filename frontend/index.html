@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html class="no-scrollbar scroll-smooth" lang="en">
+
+<head >
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/src/style.css">
+  <title>ServExpress -Home Page</title>
+</head>
+
+<body class="w-full h-screen">
+  <!-- Navbar start Here -->
+  <nav class="w-full h-12 bg-indigo-300 flex justify-between items-center px-4">
+
+    <!-- Logo section -->
+    <div class="text-2xl font-bold text-indigo-800 cursor-pointer" id="logo">
+      ServExpress
+    </div>
+
+    <!-- Navlinks List -->
+    <ul class=" gap-6 font-semibold hidden sm:flex">
+      <li class="hover:scale-[1.1] hover:underline"><a href="#">Services</a></li>
+      <li class="hover:scale-[1.1] hover:underline"><a href="#">About</a></li>
+      <li class="hover:scale-[1.1] hover:underline"><a href="#">Contact</a></li>
+    </ul>
+
+    <!-- login/signUp -->
+    <div class="hidden sm:block w-8 h- overflow-hidden bg-white rounded-full" id="user">
+
+      <img class="w-full h-full object-cover hover:bg-indigo-300" src="/src/assets/img/circle-user-solid.png" alt="profile">
+
+    </div>
+    <!-- Menu Button for small Screens -->
+    <div class="sm:hidden cursor-pointer ">
+      <a class="text-4xl" id="menu">&#8801;</a>
+    </div>
+  </nav>
+
+  <!-- Header section -->
+
+  <header class="min-h-[calc(100vh-48px)] w-full relative bg-slate-700 overflow-hidden  grid place-items-center md:grid-cols-2  md:gap-y-10  gap-y-10 pt-20" id="header-section">
+
+    <!-- Headings section  -->
+    <div class="text-white w-full flex flex-col justify-center items-center col-start-1 h-70 md:pl-4 animate-sidePop" id="headings">
+      <div class="flex w-full justify-center">
+        <h1 class="text-5xl sm:text-6xl font-bold flex flex-col text-center gap-2 ">Book The <span
+            class="">Professionals</span></h1>
+      </div>
+
+      <div class="w-full text-center my-4">
+        <p class="text-2xl text-gray-400">We bring Services at home!</p>
+      </div>
+    </div>
+ 
+    <div class="w-full h-45 flex flex-col items-center justify-start md:justify-center gap-10 md:col-start-2 animate-sidePop " id="city">
+
+      <!-- city selection -->
+      <div class="text-black w-full h-10  mt-4 flex justify-center items-center" >
+        <select name="city" id="city" class="bg-white w-[50%] h-10 border border-r-0 rounded-l-2xl px-4 outline-0">
+          <option value="select">Select</option>
+          <option value="lucknow">Lucknow</option>
+          <option value="gorakhpur">Gorakhpur</option>
+          <option value="maharajganj">Maharajganj</option>
+          <option value="kushinagar">Kushinagar</option>
+          <option value="varanasi">Varanasi</option>
+        </select>
+
+        <div
+          class=" bg-amber-400 border rounded-r-2xl w-[30%] h-10 flex items-center justify-center text-center border-l-0">
+          <p class="text-xs font-bold">Choose your city</p>
+        </div>
+      </div>
+
+      <!-- Report and support links -->
+      <div class="text-white flex w-full mt-4 justify-around items-center px-4">
+        <a class="list-item  hover:underline" href="#">Report a Problem</a>
+
+        <a class="list-item hover:underline" href="#">Contact for Support</a>
+
+      </div>
+
+    </div>
+    <!-- Grid Design area -->
+    <div
+      class="grid grid-cols-2 gap-4 w-full h-full place-items-center px-10 py-10 md:grid-cols-3 md:col-start-1 md:col-span-1 animate-popUp" id="grid-section">
+
+
+      <div
+        class="w-full h-full col-start-1 col-span-1 row-span-1 row-end-1 overflow-hidden  hover:-translate-y-4 transition-all ">
+        <img class=" object-cover h-full w-full rounded-xl " src="/src/assets/img/D1.png" alt="">
+      </div>
+
+
+      <div
+        class="w-full h-full col-start-1 col-span-1 row-span-1 row-end-3 overflow-hidden md:col-span-1 md:col-start-3 md:row-end-1 hover:-translate-y-4 transition-all">
+        <img class=" object-cover h-full w-full rounded-xl " src="/src/assets/img/d2.png" alt="">
+      </div>
+
+
+      <div
+        class="w-full h-full col-start-2 col-span-1 row-span-1 row-end-1 overflow-hidden  hover:-translate-y-4 transition-all">
+        <img class="object-cover h-full w-full rounded-xl " src="/src/assets/img/d3.png" alt="">
+      </div>
+
+
+      <div
+        class="w-full h-full col-start-2   row-end-3 overflow-hidden md:col-start-3 md:row-end-2  hover:-translate-y-4 transition-all">
+        <img class="object-cover h-full w-full rounded-xl" src="/src/assets/img/d5.png" alt="">
+      </div>
+
+
+      <div class="w-full h-full col-start-1 col-span-2 row-end-2 row-span-1 overflow-hidden ">
+        <img class=" w-full h-full object-cover  rounded-xl " src="/src/assets/img/d6.png" alt="">
+      </div>
+
+    </div>
+
+    <div
+      class="hidden md:flex col-start-2 row-start-2 text-white flex-col justify-center items-start w-full h-full px-[10%] gap-8 py-8 animate-sidePopOpp">
+
+      <h2 class="text-5xl font-bold">Steps to book services.</h2>
+      <!-- user Guide but only at bigger screens -->
+      <ul class="w-full h-full flex flex-col  gap-4">
+        <li class="text-2xl list-disc
+            ">Login with an account.</li>
+        <li class="text-2xl list-disc
+            ">Select your city.</li>
+        <li class="text-2xl list-disc
+            ">Look for available services.</li>
+        <li class="text-2xl list-disc
+            ">Choose a Professional.</li>
+        <li class="text-2xl list-disc 
+            ">Book an appointment</li>
+      </ul>
+    </div>
+
+  </header>
+   <!-- sidebar content -->
+   
+    <aside class="w-1/2 h-screen sm:hidden flex-col justify-start items-center fixed top-1/2 transform translate-y-[-50%] mt-12 left-1/2 bg-amber-500 transition-all duration-500 ease-in-out opacity-0 translate-x-full pointer-events-none" id="sidebar">
+    <div class="w-full h-max">
+      <ul class="flex flex-col items-center justify-start gap-4 p-4 text-lg font-semibold text-black">
+      <li class="hover:text-gray-800"><a href="#">Contact</a></li>
+      <li class="hover:text-gray-800"><a href="#">Side Links2</a></li>
+      <li class="hover:text-gray-800"><a href="#">Side Links3</a></li>
+      <li class="hover:text-gray-800"><a href="#">Side Links4</a></li>
+      <li class="hover:text-gray-800"><a href="#">Side Links5</a></li>
+    </ul></div>
+    <div class="w-full h-max flex justify-center pt-4 ">
+      <button class="rounded-2xl border-0 bg-slate-600 w-1/2 h-8 text-white hover:bg-linear-90 from-slate-600 to-slate-300 hover:text-black hover:shadow-sm hover:shadow-black">Log-In</button>
+    </div>
+
+    </aside>
+  
+
+  <!-- Main section start here -->
+  <main class="bg-gray-300 w-full h-auto px-4 ">
+
+    <!-- Electrician section -->
+    <div class="w-full flex flex-col  p-4">
+      <h3 class="font-bold text-3xl  border-b-4 border-amber-500 w-max">Electrician</h3>
+      <div class="h-auto  w-full flex gap-4 py-4 overflow-x-auto no-scrollbar">
+        <div
+          class="bg-white w-40 h-max rounded-4xl flex justify-center flex-col items-center shrink-0 hover:-translate-y-2 transition-all  ">
+          <img class="object-cover h-3/4 w-full" src="/src/assets/img/circle-user-solid.png" alt="">
+          <div class="flex flex-col text-center my-3">
+            <p class="font-bold text-xl">Name 1</p>
+            <p class=" text-sm ">Rs 300 - 400</p>
+            <p>Rating</p>
+          </div>
+        </div>
+      </div>
+      <div class="w-full h-6 bg-amber-300/40 flex items-center justify-center font-semibold hover:underline cursor-pointer rounded-bl-4xl rounded-tr-4xl " id="electrician"><p class="opacity-100">See All</p></div>
+    </div>
+
+    <!-- Plumber section -->
+    <div class="flex flex-col gap-4 p-4 w-full h-auto ">
+      <h3 class="font-bold text-3xl border-b-4 border-amber-500 w-max">Plumber</h3>
+      <div class="h-auto w-full flex  py-4 overflow-x-auto no-scrollbar">
+        <div
+          class="bg-white w-40 h-max rounded-4xl flex justify-center flex-col items-center shrink-0 hover:-translate-y-2 transition-all">
+          <img class="object-cover h-3/4 w-full" src="/src/assets/img/circle-user-solid.png" alt="">
+          <div class="flex flex-col text-center my-3">
+            <p class="font-bold text-xl">Name 1</p>
+            <p class=" text-sm ">Rs 300 - 400</p>
+            <p>Rating</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="w-full h-6 bg-amber-300/40 flex items-center justify-center font-semibold hover:underline cursor-pointer rounded-bl-4xl rounded-tr-4xl "><p class="opacity-100">See All</p></div>
+    </div>
+
+    <!-- Painter Section -->
+    <div class="flex flex-col  p-4">
+      <h3 class="font-bold text-3xl border-b-4 border-amber-500 w-max">Painter</h3>
+      <div class="h-auto w-full flex gap-4 py-4 overflow-x-auto no-scrollbar">
+        <div
+          class="bg-white w-40 h-max rounded-4xl flex justify-center flex-col items-center shrink-0 hover:-translate-y-2 transition-all">
+          <img class="object-cover h-3/4 w-full" src="/src/assets/img/circle-user-solid.png" alt="">
+          <div class="flex flex-col text-center my-3">
+            <p class="font-bold text-xl">Name 1</p>
+            <p class=" text-sm ">Rs 300 - 400</p>
+            <p>Rating</p>
+          </div>
+        </div>
+        
+      </div>
+      <div class="w-full h-6 bg-amber-300/40 flex items-center justify-center font-semibold hover:underline cursor-pointer rounded-bl-4xl rounded-tr-4xl "><p class="opacity-100">See All</p></div>
+    </div>
+
+    <!-- Carpenter Section -->
+    <div class="flex flex-col p-4">
+      <h3 class="font-bold text-3xl border-b-4 border-amber-500 w-max">Carpenter</h3>
+      <div class="h-auto w-full flex gap-4 py-4 overflow-x-auto no-scrollbar">
+        <div
+          class="bg-white w-40 h-max rounded-4xl flex justify-center flex-col items-center shrink-0 hover:-translate-y-2 transition-all">
+          <img class="object-cover h-3/4 w-full" src="/src/assets/img/circle-user-solid.png" alt="">
+          <div class="flex flex-col text-center my-3">
+            <p class="font-bold text-xl">Name 1</p>
+            <p class=" text-sm ">Rs 300 - 400</p>
+            <p>Rating</p>
+          </div>
+        </div>
+      </div>
+      <div class="w-full h-6 bg-amber-300/40 flex items-center justify-center font-semibold hover:underline cursor-pointer rounded-bl-4xl rounded-tr-4xl "><p class="opacity-100">See All</p></div>
+    </div>
+    <br>
+
+    <!-- Feedback section -->
+    <section
+      class="bg-gray-200 flex flex-col md:flex-row gap-4 p-4  w-full h-auto items-center justify-center md:px-10 md:gap-20 rounded-4xl shadow">
+      <div class="flex flex-col justify-center items-center text-center gap-4">
+        <h3 class="font-bold text-2xl border-b-4 border-amber-400">Help Us to improve!</h3>
+
+        <p class="text-md text-gray-600 font-semibold">Please share your opinion to help us improve and let us knwo
+          promlems you are facing during bookings or post bookings</p>
+        <p class="text-md text-gray-600 font-semibold">Do not forget to rate us.</p>
+      </div>
+
+      <div class="w-[80%] h-max py-8 bg-white rounded-4xl shadow-2xl grid place-items-center md:w-[60%] lg:w-[40%]">
+        <form class="flex flex-col justify-center items-center gap-4 w-[80%]" action="#">
+          <h3 class="font-bold text-2xl">Feedback</h3>
+          <div class="w-full flex flex-col justify-center items-center gap-4 pb-4">
+            <input class="w-full h-10 border-b-2 focus:border-amber-500 outline-0" type="text" placeholder="Name">
+            <input class="w-full h-10 border-b-2 focus:border-amber-500 outline-0" type="email" placeholder="Email">
+            <textarea class="w-full h-10 border-b-2 focus:border-amber-500 outline-0 ac" placeholder="Enter text here"
+              id=""></textarea>
+
+          </div>
+          <button
+            class="border-2 w-36 h-9 rounded-sm bg-linear-to-l from-amber-500 to-slate-200 hover:from-amber-600 hover:to-amber-400 transition-all">Submit</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Team introduction section -->
+
+  </main>
+
+
+  <!-- Footer section start here -->
+  <footer class="bg-slate-700 text-white w-full h-auto p-8 flex flex-col justify-center items-center gap-15">
+    <div class="flex justify-between w-full flex-wrap items-center sm:items-start flex-col text-center gap-4 sm:flex-row">
+      <div class="">
+        <h4 class="font-bold text-lg capitalize border-b-2 border-amber-500">Quick Links</h4>
+        <ul>
+          <li>Contact</li>
+          <li>Support</li>
+          <li>About</li>
+
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-lg capitalize border-b-2 border-amber-500">another links</h4>
+        <ul>
+          <li>link1</li>
+          <li>link2</li>
+          <li>link3</li>
+          <li>link4</li>
+          <li>link5</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-lg capitalize border-b-2 border-amber-500">another links</h4>
+        <ul>
+          <li>link1</li>
+          <li>link2</li>
+          <li>link3</li>
+          <li>link4</li>
+          <li>link5</li>
+        </ul>
+      </div>
+    </div>
+    <!-- social media -->
+    <div class=" w-full h-auto">
+      <ul class="w-full h-auto flex justify-around flex-wrap gap-4">
+        <li class="w-10 h-10 bg-white rounded-4xl"><a href=""><img class="object-cover w-full h-full" src="/src/assets/img/logo.png" alt=""></a></li>
+        <li class="w-16 h-16"><a href=""></a>youtube</li>
+        <li class="w-16 h-16"><a href=""></a>facebook</li>
+        <li class="w-16 h-16"><a href=""></a>email</li>
+        <li class="w-16 h-16"><a href=""></a>linked</li>
+      </ul>
+    </div>
+  </footer>
+</body>
+ <script type="module" src="../src/main.js"></script>
+
+</html>
