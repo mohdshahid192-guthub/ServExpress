@@ -18,12 +18,13 @@ login.addEventListener("submit", (e) => {
 .then(data => {
   
   
+  
   if (data.success) {
    if (data.user?.loggedInUser?.accountType === "customer") {
      window.location.href = "../index.html"
    }
     else{
-       window.location.href = "../pHome/pHome.html"
+       window.location.href = "./pHome.html"
     }
   }
 })

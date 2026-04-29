@@ -24,8 +24,10 @@ app.use((req, res, next) => {
 
 
 import userRouter from "./routes/user.route.js"
+import orderRouter from "./routes/order.routes.js"
 
 app.use("/api/v1/users", userRouter)
+app.use("/api/v1/orders", orderRouter)
 
 
 

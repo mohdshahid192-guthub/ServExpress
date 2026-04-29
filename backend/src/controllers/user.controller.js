@@ -193,8 +193,65 @@ if (!token) {
 
     return res.status(200).json(new ApiResponse(200, user, "User is Logged in"), {success: true})
 
+});
+
+
+const professionalCardShowDown = asyncHandler(async (req, res, next) => {
+  const professional = await User.aggregate([
+      {
+        $match: {accountType: "professional"}
+      },
+      {
+        $project: {
+          _id: 1,
+          fullName: 1,
+          serviceCharge: 1,
+          avatar: 1,
+          category: 1
+        }
+      }
+
+  ]);
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, professional, "Professional data fetched successfully"));
+});
+
+const professionalForBooking = asyncHandler(async (req, res) => {
+  
+  
+ 
+  const professional = await User.findById(req.body).select("-email -password -username -refreshToken")
+  
+  
+  return res.status(200).json(new ApiResponse(200, professional, "booking details fetched successfully"), {success: true})
+
 })
 
+const professionalWithCategory = asyncHandler(async (req, res) => {
+
+  const {category} = req.body
+
+const normalizedCategory = category.toLowerCase().replace(/s$/, "");
+ 
+ const professional = await User.aggregate([
+  
+  {$match: {accountType: "professional",
+    category: normalizedCategory
+  } },
+  {$project: {
+    _id: 1, 
+    fullName: 1, 
+    serviceCharge: 1,
+    avatar: 1,
+    category: 1
+
+  }}
+ ])
+
+return res.status(200).json(new ApiResponse(200, professional, "successfully fetched list"))
+})
 
 
 export {
@@ -202,5 +259,8 @@ export {
 userLogin,
 logOutUser,
 refreshAccessToken,
-userLoginCheck
+userLoginCheck,
+professionalCardShowDown,
+professionalForBooking,
+professionalWithCategory
 }

@@ -55,6 +55,9 @@ const userSchema = new Schema({
 
    serviceCharge: {
     type: Number
+   },
+   category: {
+    type: String
    }
 }, 
   

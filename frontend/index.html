@@ -19,19 +19,27 @@
 
     <!-- Navlinks List -->
     <ul class=" gap-6 font-semibold hidden sm:flex">
-      <li class="hover:scale-[1.1] hover:underline"><a href="#">Services</a></li>
+
+   <li class="group relative">
+  <a href="#" class="hover:underline hover:scale-110 transition-transform">Services</a>
+
+  <div class="hidden group-hover:block absolute bg-white z-10 shadow-md rounded-md">
+    <ul class="p-2 space-y-1">
+      <li class="hover:bg-gray-100 px-2 py-1 cursor-pointer"><a href="#electrician-section"> Electrician</a></li>
+      <li class="hover:bg-gray-100 px-2 py-1 cursor-pointer"><a href="#plumber-section"> Plumber</a></li>
+      <li class="hover:bg-gray-100 px-2 py-1 cursor-pointer"><a href="#painter-section"> Painter</a></li>
+      <li class="hover:bg-gray-100 px-2 py-1 cursor-pointer"><a href="#carpenter-section"> Carpenter</a></li>
+    </ul>
+  </div>
+</li>
+
       <li class="hover:scale-[1.1] hover:underline"><a href="#">About</a></li>
       <li class="hover:scale-[1.1] hover:underline"><a href="#">Contact</a></li>
     </ul>
 
-    <!-- login/signUp -->
-    <div class="hidden sm:block w-8 h- overflow-hidden bg-white rounded-full" id="user">
-
-      <img class="w-full h-full object-cover hover:bg-indigo-300" src="/src/assets/img/circle-user-solid.png" alt="profile">
-
-    </div>
+   
     <!-- Menu Button for small Screens -->
-    <div class="sm:hidden cursor-pointer ">
+    <div class=" cursor-pointer ">
       <a class="text-4xl" id="menu">&#8801;</a>
     </div>
   </nav>
@@ -137,17 +145,18 @@
   </header>
    <!-- sidebar content -->
    
-    <aside class="w-1/2 h-screen sm:hidden flex-col justify-start items-center fixed top-1/2 transform translate-y-[-50%] mt-12 left-1/2 bg-amber-500 transition-all duration-500 ease-in-out opacity-0 translate-x-full pointer-events-none" id="sidebar">
+    <aside class="w-1/2 h-screen md:w-1/4  flex-col justify-start items-center fixed top-1/2 transform translate-y-[-50%] mt-12 left-1/2 bg-amber-500 transition-all duration-500 ease-in-out opacity-0 translate-x-full pointer-events-none md:translate-x-full" id="sidebar">
     <div class="w-full h-max">
       <ul class="flex flex-col items-center justify-start gap-4 p-4 text-lg font-semibold text-black">
-      <li class="hover:text-gray-800"><a href="#">Contact</a></li>
-      <li class="hover:text-gray-800"><a href="#">Side Links2</a></li>
-      <li class="hover:text-gray-800"><a href="#">Side Links3</a></li>
-      <li class="hover:text-gray-800"><a href="#">Side Links4</a></li>
-      <li class="hover:text-gray-800"><a href="#">Side Links5</a></li>
+      <li class="hover:text-gray-800  cursor-pointer" id="user">Profile</li>
+      <li class="hover:text-gray-800"><a href="#">Contacts</a></li>
+      <li class="hover:text-gray-800"><a href="#">About</a></li>
+      <li class="hover:text-gray-800"><a href="#">Orders</a></li>
+     
     </ul></div>
     <div class="w-full h-max flex justify-center pt-4 ">
-      <button class="rounded-2xl border-0 bg-slate-600 w-1/2 h-8 text-white hover:bg-linear-90 from-slate-600 to-slate-300 hover:text-black hover:shadow-sm hover:shadow-black">Log-In</button>
+      <button class=" rounded-2xl border-0 bg-slate-600 w-1/2 h-8  hover:bg-slate-800 text-white hover:shadow-sm " id="logOut">Log-Out</button>
+      <button class="rounded-2xl border-0 bg-slate-600 w-1/2 h-8  hover:bg-slate-800 text-white hover:shadow-sm " id="logIn">Log-In</button>
     </div>
 
     </aside>
@@ -157,10 +166,10 @@
   <main class="bg-gray-300 w-full h-auto px-4 ">
 
     <!-- Electrician section -->
-    <div class="w-full flex flex-col  p-4">
-      <h3 class="font-bold text-3xl  border-b-4 border-amber-500 w-max">Electrician</h3>
-      <div class="h-auto  w-full flex gap-4 py-4 overflow-x-auto no-scrollbar">
-        <div
+    <div class="w-full flex flex-col  p-4" >
+      <h3 class="font-bold text-3xl  border-b-4 border-amber-500 w-max" >Electrician</h3>
+      <div class="h-auto  w-full flex gap-4 py-4 overflow-x-auto no-scrollbar" id="electrician-section">
+        <!-- <div
           class="bg-white w-40 h-max rounded-4xl flex justify-center flex-col items-center shrink-0 hover:-translate-y-2 transition-all  ">
           <img class="object-cover h-3/4 w-full" src="/src/assets/img/circle-user-solid.png" alt="">
           <div class="flex flex-col text-center my-3">
@@ -168,16 +177,16 @@
             <p class=" text-sm ">Rs 300 - 400</p>
             <p>Rating</p>
           </div>
-        </div>
+        </div> -->
       </div>
-      <div class="w-full h-6 bg-amber-300/40 flex items-center justify-center font-semibold hover:underline cursor-pointer rounded-bl-4xl rounded-tr-4xl " id="electrician"><p class="opacity-100">See All</p></div>
+      <div class="w-full h-6 bg-amber-300/40 flex items-center justify-center font-semibold hover:underline cursor-pointer rounded-bl-4xl rounded-tr-4xl " id="electrician-bucket"><p class="opacity-100">See All</p></div>
     </div>
 
     <!-- Plumber section -->
-    <div class="flex flex-col gap-4 p-4 w-full h-auto ">
+    <div class="flex flex-col gap-4 p-4  " >
       <h3 class="font-bold text-3xl border-b-4 border-amber-500 w-max">Plumber</h3>
-      <div class="h-auto w-full flex  py-4 overflow-x-auto no-scrollbar">
-        <div
+      <div class="h-auto w-full flex gap-4  py-4 overflow-x-auto no-scrollbar" id="plumber-section">
+        <!-- <div
           class="bg-white w-40 h-max rounded-4xl flex justify-center flex-col items-center shrink-0 hover:-translate-y-2 transition-all">
           <img class="object-cover h-3/4 w-full" src="/src/assets/img/circle-user-solid.png" alt="">
           <div class="flex flex-col text-center my-3">
@@ -185,17 +194,17 @@
             <p class=" text-sm ">Rs 300 - 400</p>
             <p>Rating</p>
           </div>
-        </div>
+        </div> -->
 
       </div>
-      <div class="w-full h-6 bg-amber-300/40 flex items-center justify-center font-semibold hover:underline cursor-pointer rounded-bl-4xl rounded-tr-4xl "><p class="opacity-100">See All</p></div>
+      <div class="w-full h-6 bg-amber-300/40 flex items-center justify-center font-semibold hover:underline cursor-pointer rounded-bl-4xl rounded-tr-4xl " id="plumber-bucket"><p class="opacity-100">See All</p></div>
     </div>
 
     <!-- Painter Section -->
-    <div class="flex flex-col  p-4">
+    <div class="flex flex-col  p-4" >
       <h3 class="font-bold text-3xl border-b-4 border-amber-500 w-max">Painter</h3>
-      <div class="h-auto w-full flex gap-4 py-4 overflow-x-auto no-scrollbar">
-        <div
+      <div class="h-auto w-full flex gap-4 py-4 overflow-x-auto no-scrollbar" id="painter-section">
+        <!-- <div
           class="bg-white w-40 h-max rounded-4xl flex justify-center flex-col items-center shrink-0 hover:-translate-y-2 transition-all">
           <img class="object-cover h-3/4 w-full" src="/src/assets/img/circle-user-solid.png" alt="">
           <div class="flex flex-col text-center my-3">
@@ -203,17 +212,17 @@
             <p class=" text-sm ">Rs 300 - 400</p>
             <p>Rating</p>
           </div>
-        </div>
+        </div> -->
         
       </div>
-      <div class="w-full h-6 bg-amber-300/40 flex items-center justify-center font-semibold hover:underline cursor-pointer rounded-bl-4xl rounded-tr-4xl "><p class="opacity-100">See All</p></div>
+      <div class="w-full h-6 bg-amber-300/40 flex items-center justify-center font-semibold hover:underline cursor-pointer rounded-bl-4xl rounded-tr-4xl " id="painter-bucket"><p class="opacity-100">See All</p></div>
     </div>
 
     <!-- Carpenter Section -->
-    <div class="flex flex-col p-4">
+    <div class="flex flex-col p-4" >
       <h3 class="font-bold text-3xl border-b-4 border-amber-500 w-max">Carpenter</h3>
-      <div class="h-auto w-full flex gap-4 py-4 overflow-x-auto no-scrollbar">
-        <div
+      <div class="h-auto w-full flex gap-4 py-4 overflow-x-auto no-scrollbar" id="carpenter-section">
+        <!-- <div
           class="bg-white w-40 h-max rounded-4xl flex justify-center flex-col items-center shrink-0 hover:-translate-y-2 transition-all">
           <img class="object-cover h-3/4 w-full" src="/src/assets/img/circle-user-solid.png" alt="">
           <div class="flex flex-col text-center my-3">
@@ -221,9 +230,9 @@
             <p class=" text-sm ">Rs 300 - 400</p>
             <p>Rating</p>
           </div>
-        </div>
+        </div> -->
       </div>
-      <div class="w-full h-6 bg-amber-300/40 flex items-center justify-center font-semibold hover:underline cursor-pointer rounded-bl-4xl rounded-tr-4xl "><p class="opacity-100">See All</p></div>
+      <div class="w-full h-6 bg-amber-300/40 flex items-center justify-center font-semibold hover:underline cursor-pointer rounded-bl-4xl rounded-tr-4xl " id="carpenter-bucket"><p class="opacity-100">See All</p></div>
     </div>
     <br>
 
