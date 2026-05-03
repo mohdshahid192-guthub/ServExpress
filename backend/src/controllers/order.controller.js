@@ -3,7 +3,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { User } from "../models/user.model.js";
 import {Order} from "../models/orders.model.js"
 import { ApiResponse } from "../utils/ApiResponse.js";
-
+import crypto from "crypto"
 
 const orderPlace = asyncHandler(async (req, res) => {
 
@@ -138,7 +138,7 @@ const getRequestDetails = asyncHandler(async (req, res) => {
 const changeStatus = asyncHandler(async (req, res) => {
   const {orderId, status} = req.body
   
-if (!orderId && !status) {
+if (!orderId || !status) {
   throw new ApiError(400, "No request to accept");
   
 }
@@ -152,6 +152,11 @@ if (!orderId && !status) {
 
   order.status = status
 
+  if (status === "pending") {
+    order.expiresAt = new Date(Date.now() + 24*60*60*1000);
+    order.otp = crypto.randomInt(100000, 999999).toString()
+  }
+ 
   await order.save({validateBeforeSave: false})
 
 
@@ -200,8 +205,34 @@ const showPendingSection = asyncHandler(async (req, res) => {
 
 })
 
+const pendingToServed = asyncHandler(async (req, res) => {
+  const {otp, status, orderId} = req.body
+console.log(otp);
+
+  const order = await Order.findOne({$and: [{_id: orderId}, {status: "pending"}]})
+if (!order) {
+  throw new ApiError(400, "Order not found")
+}
+
+  if (order.otp !== otp) {
+    throw new ApiError(400, "Otp is not correct")
+  }
+
+if (status === "served") {
+  order.status = status
+  order.cleanupAt = new Date(Date.now() + 28*60*60*1000)
+  order.otp = undefined
+ }
+
+ await order.save({validateBeforeSave: false})
+
+ return res.status(200).json(new ApiResponse(200, order, "Order served Successfully"))
+
+})
+
+
 
 export {
-  orderPlace, getOrderDetails, getRequestDetails, changeStatus, showPendingSection
+  orderPlace, getOrderDetails, getRequestDetails, changeStatus, showPendingSection, pendingToServed
 }
 

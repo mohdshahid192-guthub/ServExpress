@@ -17,12 +17,20 @@ const orderSchema = new Schema({
     status: {
       type: String, 
       required: true,
-      enum: ["requested", "pending", "served", "missed"],
+      enum: ["requested", "pending", "served", "missed", "rejected"],
       default: "requested"
     },
-    orderToken: {
-      type: String
-    }
+
+    expiresAt: {
+    type: Date,
+    default: () => new Date(Date.now() + 6*60*60*1000) 
+  },
+  cleanupAt: {
+    type: Date
+  },
+  otp: {
+    type: String
+  }
 
 
 }, {timestamps: true});
