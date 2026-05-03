@@ -1,51 +1,11 @@
 
+import "../src/style.css"
 
-const menu = document.getElementById("menu");
-const sidebar = document.querySelector("#sidebar");
-const body = document.querySelectorAll("body");
+ 
 
-
- menu.addEventListener("click", () => {
-    sidebar.classList.toggle("opacity-0");
-  sidebar.classList.toggle("translate-x-full");
-  sidebar.classList.toggle("pointer-events-none");
-  
-    body.forEach(Element => {
-      Element.classList.toggle("overflow-y-hidden");
-      Element.classList.toggle("overflow-y-auto");
-     
-    });
-    menuIcon()
-  
-});
-
-document.addEventListener("click", (event) => {
-  const isInsideSidebar = sidebar.contains(event.target);
-  const isMenuClick = menu.contains(event.target);
-
-  if(!isInsideSidebar && !isMenuClick && !sidebar.classList.contains("opacity-0")){
-    sidebar.classList.add("opacity-0", "translate-x-full", "pointer-events-none");
-     body.forEach(Element => {
-      Element.classList.remove("overflow-y-hidden");
-      Element.classList.add("overflow-y-auto");
-    });
-    menuIcon()
-  }
-})
+ 
 
 
-
-
-function menuIcon() {
-  // Get the actual text content (rendered character)
-  let menuText = menu.innerText.trim();
-
-  if (menuText === "≡") {
-    menu.innerText = "×";  // Unicode multiplication sign
-  } else {
-    menu.innerText = "≡";  // Hamburger symbol
-  }
-}
 
 
 
@@ -149,12 +109,79 @@ Element.classList.remove("hidden")
 })
 requests.classList.add("bg-gray-400")
 })
+fetch("/api/v1/orders/requests", {credentials: "include"})
+.then(res => res.json())
+.then(data => {
+
+for (let index = 0; index < data.message.length; index++) {
+  
+  const div = document.createElement("div")
+  div.classList.add("bg-slate-700", "w-[90%]", "h-max", "flex", "items-center" , "justify-between", "rounded-4xl", "px-8", "flex-col", "sm:flex-row")
+  
+  div.innerHTML = `
+  <p class="font-bold text-3xl capitalize text-white pt-4 sm:pt-0">
+    ${data.message[index]?.customerDetails?.username}
+  </p>
+  <div class="flex gap-4 py-4">
+    <button class=" w-15 rounded-3xl hover:bg-green-700 h-10 bg-green-500 font-bold border-2" id = "accept-btn">&#10003;</button>
+    <button class=" w-15 rounded-3xl hover:bg-red-700 h-10 bg-red-500 font-bold border-2" id = "reject-btn">&#x2715;</button>
+  </div>
+`;
+
+div.querySelector("#accept-btn").addEventListener("click", () => {
+
+  const orderId = data.message[index]?._id
+  const status = "pending"
+  fetch("/api/v1/orders/changeStatus", {
+    method: "POST", 
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({orderId, status})
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.ok) {
+      console.log("success");
+      
+    }
+  })
+  
+})
+
+
+ request_sec.forEach(Element => {
+    Element.appendChild(div)
+  })
+
+}
+
+}).catch(error => console.log("Unable to fetch requests")
+)
+
+
+fetch("/api/v1/orders/pending", {credentials: "include"})
+.then(res => res.json())
+.then(data => {
+
+  
+    for(let i = 0; i < data.message.length; i++){
+      const div = document.createElement("div")
+      div.classList.add("bg-slate-700", "w-[90%]", "h-max", "flex", "items-start", "rounded-4xl", "px-8", "py-4", "flex-col")
+      div.innerHTML = `<p class="font-bold text-3xl capitalize text-white">${data.message[i]?.customerDetails?.username}</p>
+<p class=" capitalize text-white">user address comes here</p>
+<p class="font-bold capitalize text-white">+91-${data.message[i]?.customerDetails?.phone}</p>`
+
+pending_sec.forEach(Element => Element.appendChild(div))
+    }
+})
 
 
 
 
 
- 
+
+
+
+
  
 
 

@@ -53,14 +53,14 @@ getBookingDetails(_id).then(res => res.json())
 
       }).then(res => res.json())
       .then(data => {
-        console.log(data);
-        
+        localStorage.setItem("orderId", data.message?._id)
+        window.location.href = "./orders.html"
       })
        
      })
 
 })
-.catch(error => console.log("unable to fetch data", error)
+.catch(error => console.log("Unable to place order", error)
 )
 
 

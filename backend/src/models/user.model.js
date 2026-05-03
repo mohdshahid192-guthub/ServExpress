@@ -25,7 +25,7 @@ const userSchema = new Schema({
       trim: true,
       capitalized: true
     },
-    address:{
+    location:{
       type: String,
       trim: true,
       capitalized: true

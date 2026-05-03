@@ -15,11 +15,11 @@ user.forEach(Element => {
     return response.json()
   })
   .then(data => {
-    
-    
+ 
     if (data.success) {
       window.location.href = "/structures/pHome.html"
     }
+    
   else{
     window.location.href = "/structures/login.html"
   }
@@ -123,7 +123,12 @@ const carpenterSection = document.querySelector("#carpenter-section");
 const logoutUser = document.querySelector("#logOut")
 const logINUser = document.querySelector("#logIn")
 // Attach to window, not div
-window.addEventListener("DOMContentLoaded", () => {
+
+
+
+
+
+
  
 
   renderProfessional()
@@ -203,7 +208,7 @@ window.addEventListener("DOMContentLoaded", () => {
         logoutUser.classList.add("hidden")
       }
     })
-});
+
 
 
 async function logOutUser() {
@@ -214,8 +219,9 @@ async function logOutUser() {
     });
 
     const data = await res.json();
-
-    if (data.message === "User Logged Out") {
+    console.log(data);
+    
+    if (data.success) {
       // Clear client-side storage
       localStorage.clear();
       sessionStorage.clear();
@@ -226,10 +232,10 @@ async function logOutUser() {
           .replace(/^ +/, "")
           .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
       });
-
-     window.location.replace("/index.html");
-
+    window.location.reload()
     }
+   
+  
   } catch (err) {
     console.error("Logout failed:", err);
   }
@@ -237,6 +243,9 @@ async function logOutUser() {
 
 logoutUser.addEventListener("click", () => {
      logOutUser()
-      
 });
+
+document.getElementById("logIn").addEventListener("click", () => {
+  window.location.href = "../structures/login.html"
+})
 
