@@ -1,3 +1,6 @@
+import "../src/style.css"
+
+
 const customerBtn = document.getElementById("custBtn");
 const professionalBtn = document.getElementById("proBtn");
 const customer = document.getElementById("customer");

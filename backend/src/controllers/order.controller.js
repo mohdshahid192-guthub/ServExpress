@@ -76,11 +76,13 @@ const getOrderDetails = asyncHandler(async(req, res) => {
    $project: {
     _id: 1,
     status: 1,
+    otp: 1,
     createdAt: 1,
     "professionalDetails._id": 1,
     "professionalDetails.fullName": 1,
     "professionalDetails.serviceCharge": 1,
     "professionalDetails.avatar": 1,
+    
 
    }
   },
@@ -207,7 +209,7 @@ const showPendingSection = asyncHandler(async (req, res) => {
 
 const pendingToServed = asyncHandler(async (req, res) => {
   const {otp, status, orderId} = req.body
-console.log(otp);
+
 
   const order = await Order.findOne({$and: [{_id: orderId}, {status: "pending"}]})
 if (!order) {
@@ -230,9 +232,48 @@ if (status === "served") {
 
 })
 
+const getHistoryDetails = asyncHandler(async (req, res) => {
+    const professional = req.user
+
+    
+    
+ if (!professional) {
+  throw new ApiError(400, "Unauthorized user")
+ }
+    const history = await Order.aggregate([
+      {$match: {professional: professional._id, status: { $in: ["served", "missed"]}}},
+      
+    {$lookup: {
+      from: "users",
+      localField: "customer",
+      foreignField: "_id",
+      as: "customerDetails"
+    }},
+    {$unwind: "$customerDetails"},
+    {
+      $project: {
+         _id: 1,
+    status: 1,
+    createdAt: 1,
+    "customerDetails._id": 1,
+    "customerDetails.username": 1,
+    "customerDetails.phone": 1
+
+      }
+    }
+    ]);
+
+    if (!history) {
+      throw new ApiError(500, "Either no history exist or something wrong while fething data")
+    }
+
+    return res.status(200).json(new ApiResponse(200, history, "History fetched successfully"))
+
+})
+
 
 
 export {
-  orderPlace, getOrderDetails, getRequestDetails, changeStatus, showPendingSection, pendingToServed
+  orderPlace, getOrderDetails, getRequestDetails, changeStatus, showPendingSection, pendingToServed, getHistoryDetails
 }
 

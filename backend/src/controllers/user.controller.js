@@ -3,6 +3,8 @@ import { ApiError } from "../utils/ApiError.js";
 import { User } from "../models/user.model.js";
 import { ApiResponse } from "../../../backend/src/utils/ApiResponse.js";
 import jwt from "jsonwebtoken"
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import {v2 as cloudinary} from "cloudinary"
 
 const generateAccessTokenAndRefreshTOken = async (userId) => {
   try {
@@ -31,12 +33,16 @@ const registerUser = asyncHandler(async (req, res) => {
   //res return
    
    
-  const {username, email, password, accountType} = req.body
-
+  const {username, email, password, accountType, phone} = req.body
+  
   if ([username, email, password, accountType].some((field) => field?.trim() === "" )) {
     throw new ApiError(400, "Please enter the required fields")
   }
-
+if (accountType === "professional") {
+  if (!phone) {
+    throw new ApiError(404, "phone number is required")
+  }
+}
  const existedUser = await User.findOne({$or: [{email}, {username}]})
 
  if (existedUser) {
@@ -47,8 +53,8 @@ const registerUser = asyncHandler(async (req, res) => {
   username: username.toLowerCase(),
   email,
   password,
-  accountType
-
+  accountType,
+  phone: parseInt(phone)
  })
 
 
@@ -199,21 +205,32 @@ if (!token) {
 
 
 const professionalCardShowDown = asyncHandler(async (req, res, next) => {
-  const professional = await User.aggregate([
-      {
-        $match: {accountType: "professional"}
-      },
-      {
-        $project: {
-          _id: 1,
-          fullName: 1,
-          serviceCharge: 1,
-          avatar: 1,
-          category: 1
-        }
-      }
+  const location = req.body.city
 
-  ]);
+ 
+  
+  
+  const professional = await User.aggregate([
+  {
+    $match: {
+      accountType: "professional",
+      ...(location !== "select" ? { location } : {}) // only filter if not "select"
+    }
+  },
+  {
+    $project: {
+      _id: 1,
+      fullName: 1,
+      serviceCharge: 1,
+      avatar: 1,
+      category: 1,
+      location: 1
+    }
+  }
+]);
+
+  
+  
 
   return res
     .status(200)
@@ -255,6 +272,115 @@ const normalizedCategory = category.toLowerCase().replace(/s$/, "");
 return res.status(200).json(new ApiResponse(200, professional, "successfully fetched list"))
 })
 
+const getProfileDetails = asyncHandler(async (req, res) => {
+  const user = req.user
+
+  if (!user) {
+    throw new ApiError(400, "Unauthorized user")
+  }
+  
+  const userDetails = await User.aggregate([
+    {$match: {_id: user._id}},
+    {$project: {
+      _id: 1,
+      email: 1,
+      username: 1,
+      fullName: 1,
+      phone: 1,
+      serviceCharge: 1,
+      location: 1,
+      experience: 1,
+      category: 1,
+      avatar: 1
+    }}
+  ]);
+
+
+  if (!userDetails) {
+    throw new ApiError(400, "User not found");
+    
+  }
+
+  return res.status(200).json(new ApiResponse(200, userDetails, "User profile fetched successfully"))
+
+})
+
+const uploadAvatar = asyncHandler(async (req, res) => {
+  const user = req.user
+if (!user) {
+  throw new ApiError(400, "Unauthorized User")
+}
+const avatarFilePath = req.files?.avatar[0]?.path
+
+
+if (!avatarFilePath) {
+  throw new ApiError(400, "Avatar file is required")
+}
+if (user.avatar?.public_id) {
+   await cloudinary.uploader.destroy(user.avatar?.public_id)
+}
+
+const avatar = await uploadOnCloudinary(avatarFilePath)
+
+if (!avatar) {
+  throw new ApiError(500, "There is some error uploading file to cloudinary");
+
+  
+}
+
+const updateUser = await User.findByIdAndUpdate(user._id, {avatar: {url: avatar.secure_url, public_id: avatar.public_id}}, {returnDocument: "after"}).select("-password -refreshToken")
+
+if(!updateUser){
+  throw new ApiError(500, "Error occured during saving avatar")
+}
+
+return res.status(200).json(new ApiResponse(200, updateUser, "Avatar Uploaded Successfully"))
+
+})
+
+const updateUserProfile = asyncHandler(async (req, res) => {
+  const { fullName, experience, phone, serviceCharge, cityValue } = req.body;
+
+  
+  const updateData = {};
+
+  if (fullName && fullName.trim() !== "") {
+    updateData.fullName = fullName.trim();
+  }
+  if (experience && experience.trim() !== "") {
+    updateData.experience = experience.trim();
+  }
+  if (phone && phone.trim() !== "") {
+    const phoneNo = parseInt(phone, 10);
+    if (!isNaN(phoneNo)) updateData.phone = phoneNo;
+  }
+  if (serviceCharge && serviceCharge.trim() !== "") {
+    const serviceChargeValue = parseInt(serviceCharge, 10);
+    if (!isNaN(serviceChargeValue)) updateData.serviceCharge = serviceChargeValue;
+  }
+  if (cityValue && cityValue.trim() !== "") {
+    updateData.location = cityValue.trim();
+  }
+
+  // If nothing to update
+  if (Object.keys(updateData).length === 0) {
+    throw new ApiError(400, "No valid fields provided for update");
+  }
+
+  const user = await User.findByIdAndUpdate(
+    req.user?._id,
+    { $set: updateData },
+    { returnDocument: "after" }
+  ).select("-password -refreshToken");
+
+  if (!user) {
+    throw new ApiError(404, "User not found or Unauthorized user");
+  }
+
+  return res.status(200).json(new ApiResponse(200, user, "Profile updated successfully"));
+});
+
+
 
 export {
   registerUser,
@@ -264,5 +390,8 @@ refreshAccessToken,
 userLoginCheck,
 professionalCardShowDown,
 professionalForBooking,
-professionalWithCategory
+professionalWithCategory,
+getProfileDetails,
+uploadAvatar,
+updateUserProfile
 }

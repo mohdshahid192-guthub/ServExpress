@@ -1,12 +1,6 @@
 
 import "../src/style.css"
 
- 
-
- 
-
-
-
 
 
 
@@ -109,6 +103,123 @@ Element.classList.remove("hidden")
 })
 requests.classList.add("bg-gray-400")
 })
+
+const editForm = document.querySelector("#edit-form");
+const modal = document.querySelector("#modal");
+const avatarPreview = document.querySelector("#avatarPreview");
+const profileContainer = document.querySelector("#profile-container");
+ fetch("/api/v1/users/profile-details", {credentials: "include"})
+ .then(res => res.json())
+ .then(data => {
+
+   
+   if (data.success)   {
+    const user = data.message[0]
+   const avatarSrc = user.avatar?.url && user.avatar?.url.trim() !== ""
+       ? user.avatar?.url
+       : "/src/assets/img/circle-user-solid.png";
+      const div = document.createElement("div")
+    div.classList.add("grid", "gap-8", "w-full", "place-items-center", "md:grid-cols-2")
+
+    div.innerHTML =` <div class="border-2 border-white rounded-full" id = "avatar"><img class="h-48 w-48 object-cover bg-white rounded-full" src="${avatarSrc}" alt="">
+  </div>
+ 
+<div class="flex flex-col w-full h-full items-center justify-center gap-8 text-center md:items-start ">
+  <h1 class="text-4xl font-bold text-white w-full md:text-center md:pr-8">${user?.fullName}</h1>
+
+   <div class="flex flex-col items-center p-4 justify-evenly rounded-4xl w-[90%] h-full bg-white  ">
+
+    
+
+   <div class="w-4/5 overflow-hidden text-nowrap text-2xl">
+     <p class="flex gap-2 font-semibold">Email: <span class="text-gray-700">${user?.email}</span></p>
+   </div>
+   <div class="w-4/5 overflow-hidden text-nowrap text-2xl ">
+    <p class="flex gap-2 font-semibold">Username: <span class="text-gray-700">${user?.username}</span></p>
+   </div>
+   <div class="w-4/5 overflow-hidden text-nowrap text-2xl ">
+    <p class="flex gap-2 font-semibold">Experience: <span class="text-gray-700">${user?.experience}</span></p>
+   </div>
+   <div class="w-4/5 overflow-hidden text-nowrap text-2xl ">
+    <p class="flex gap-2 font-semibold">Phone: <span class="text-gray-700">+91 ${user?.phone}</span></p>
+   </div>
+   <div class="w-4/5 overflow-hidden text-nowrap text-2xl ">
+    <p class="flex gap-2 font-semibold">Service Charge: <span class="text-gray-700">${user?.serviceCharge}</span></p>
+   </div>
+   <div class="w-4/5  overflow-hidden text-nowrap text-2xl ">
+    <p class="flex gap-2 font-semibold">Location: <span class="text-gray-700">${user?.location}</span></p>
+   </div>
+   <button class="pt-8 hover:underline cursor-pointer font-semibold capitalize" id="edit">Edit details</button>
+ </div>
+  </div>`
+
+ document.querySelector("#emailEdit").setAttribute("placeholder", user?.email)
+ document.querySelector("#username").setAttribute("placeholder", user?.username)
+
+  div.querySelector("#edit").addEventListener("click", (e) => {
+      e.preventDefault()
+    editForm.classList.remove("hidden")
+    editForm.classList.add("flex")
+  })
+
+  div.querySelector("#avatar").addEventListener("click", () => {
+      avatarPreview.src = avatarSrc
+      modal.classList.remove("hidden")
+      modal.classList.add("flex")
+
+  })
+ 
+  profileContainer.appendChild(div)
+}
+
+  
+ })
+ .catch(error => console.log("cannot load user profile", error)
+ );
+
+
+ document.querySelector("#close-modal").addEventListener("click", () => {
+  modal.classList.remove("flex")
+  modal.classList.add("hidden")
+ })
+
+ const avatarUpload = document.querySelector("#avatarUpload")
+
+ avatarUpload.addEventListener("change", async (e) => {
+  const file = e.target.files[0]
+  if (!file) {
+    return
+  }
+
+  const formData = new FormData()
+
+  formData.append("avatar", file)
+  
+  
+  try {
+    const res = await fetch("/api/v1/users/updateAvatar", {
+      method: "POST",
+      body: formData,
+      credentials: "include"
+    });
+
+    const result = await res.json();
+
+    if (result.success) {
+      
+      window.location.reload()
+
+    }
+
+    // Optionally update avatar immediately
+    avatarImg.src = URL.createObjectURL(file);
+  } catch (err) {
+    console.error("Upload failed:", err);
+  }
+ })
+
+
+
 fetch("/api/v1/orders/requests", {credentials: "include"})
 .then(res => res.json())
 .then(data => {
@@ -240,16 +351,71 @@ div.addEventListener("click", () => {
 
 pending_sec.forEach(Element => Element.appendChild(div))
     }
+});
+
+
+fetch("/api/v1/orders/history", {credentials: "include"})
+.then(res => res.json())
+.then(data => {
+
+  for(let i = 0; i < data.message.length; i++){
+  const div = document.createElement("div")
+
+  div.classList.add("bg-green-500" , "w-[90%]", "h-max", "flex" ,"items-start", "rounded-4xl", "px-8", "py-4", "flex-col")
+
+  
+
+div.innerHTML = `<p class="font-bold text-3xl capitalize ">${data.message[i].customerDetails?.username}</p>
+<p class="font-bold capitalize">Service Status: ${data.message[i]?.status}</p>
+<p class=" font-bold">OrderId: ${data.message[i]?._id} </p>
+`
+if (data.message[i].status === "missed") {
+    div.classList.replace("bg-green-500", "bg-red-500")
+    div.classList.add("text-gray-200")
+  }
+history_sec.forEach(Element => Element.appendChild(div))
+  }
+
+
+})
+.catch(error => console.log("cannot fetch history data", error)
+)
+
+
+document.getElementById("closeEditForm").addEventListener("click", () => {
+  editForm.classList.remove("flex")
+  editForm.classList.add("hidden")
 })
 
 
+const saveEditForm = document.getElementById("save-edit");
+saveEditForm.addEventListener("click", (e) => {
+  e.preventDefault();
+  const experience = document.querySelector("#experience").value;
+  const fullName = document.querySelector("#fullName").value;
+  const phone = document.querySelector("#phone").value;
+  const serviceCharge = document.querySelector("#serviceCharge").value;
+  const cityValue = document.querySelector("#selectCity").value;
+ 
+  
 
-
-
-
-
-
+  fetch("/api/v1/users/edit-profile", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({fullName, experience, phone, serviceCharge, cityValue}),
+    credentials: "include"
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      console.log("succefully Updated");
+      window.location.reload()
+    }
+  })
+  .catch(error => console.log("error occured during saving", error)
+  )
 
  
-
-
+  
+  
+})

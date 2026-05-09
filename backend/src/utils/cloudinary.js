@@ -1,4 +1,4 @@
-import { v2 } from "cloudinary";
+import { v2 as cloudinary} from "cloudinary";
 import fs from "fs"
 
 
@@ -19,7 +19,7 @@ const uploadOnCloudinary = async (localFilePath) => {
       console.log("file has been uploaded on cloudinary", response.url);
       
       fs.unlinkSync(localFilePath);
-      return response.url
+      return response
     }
 
     

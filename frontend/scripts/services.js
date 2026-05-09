@@ -1,3 +1,5 @@
+import "../src/style.css"
+
 
 function loadProfessionals(category) {
   return fetch("/api/v1/users/services-section", {
@@ -24,10 +26,10 @@ li.classList.add("w-40")
 
 li.innerHTML =`<div
         class="bg-white w-full h-full rounded-sm flex flex-col items-center justify-between shrink-0 hover:-translate-y-2 transition-all ">
-        <img class="object-cover w-full h-auto rounded-t-sm" src="${data.message[i]?.avatar}" alt="">
+        <img class="border-2 border-gray-900 object-cover w-3/4 h-auto mt-4 rounded-br-2xl rounded-tr-lg rounded-tl-2xl rounded-bl-lg" src="${data.message[i]?.avatar?.url}" alt="">
         <div class="flex flex-col text-center p-3 gap-2">
           <p class="font-bold text-xl">${data.message[i].fullName}</p>
-          <p class="text-sm">Rs 300 - 400</p>
+          <p class="text-sm">Rs ${data.message[i]?.serviceCharge}</p>
           <p>Rating</p>
         </div>
       </div>`

@@ -1,3 +1,6 @@
+import "../src/style.css"
+
+
 const login = document.querySelector("#login")
 
 login.addEventListener("submit", (e) => {

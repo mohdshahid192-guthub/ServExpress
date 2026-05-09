@@ -6,12 +6,12 @@
   <link rel="stylesheet" href="/src/style.css">
   <title>ServExpress -Professionals Home Page</title>
 </head>
-<body class="flex justify-between flex-col items-center w-full h-screen bg-slate-800  gap-12">
+<body class="flex justify-start flex-col items-center w-full h-full bg-slate-800  gap-20 ">
 <!-- Navbar start Here -->
   <nav class="w-full h-14 bg-indigo-300 flex justify-between items-center px-4 pb-1">
 
     <!-- Logo section -->
-    <div class="text-2xl font-bold text-indigo-800 cursor-pointer" id="logo">
+    <div class="text-lg font-bold text-indigo-800 cursor-pointer" id="logo">
       ServExpress
     </div>
 
@@ -23,7 +23,7 @@
     </ul>
 
     <!-- login/signUp -->
-    <div class="block w-8 h- overflow-hidden bg-white rounded-full">
+    <div class="block w-8 h-8 overflow-hidden bg-white rounded-full">
 
       <img class="w-full h-full object-cover hover:bg-indigo-300" src="/src/assets/img/circle-user-solid.png" alt="profile">
 
@@ -32,20 +32,92 @@
     
   </nav>
 
-  <!-- sidebar content -->
+  
   
   
 
- 
   
-<div class="flex w-full items-center justify-center flex-col gap-8 px-4 pt-12 md:flex-row md:">
+  <div class="w-full h-max grid place-items-center" id="profile-container">
+
+    <div class="fixed inset-0 bg-black/50 hidden justify-center items-center" id="modal" >
+
+    <div class="bg-white p-6 rounded-lg flex flex-col gap-4 items-center">
+    <img id="avatarPreview" class="w-48 h-48 rounded-full object-cover" src="" alt="Avatar Preview">
+    
+    <input type="file" id="avatarUpload" accept="image/*" class="hidden">
+    <button class="px-4 py-2 bg-blue-600 text-white rounded" onclick="document.getElementById('avatarUpload').click()">
+      Upload New Picture
+    </button>
+
+    <button id="close-modal" class="px-4 py-2 bg-gray-600 text-white rounded">
+      Close
+    </button>
+  </div>
+
+
+    </div>
+
+
+    <div class="hidden inset-0 fixed bg-black/50 items-center justify-center rounded-lg" id="edit-form">
+       <div action="" class="flex flex-col w-3/4 h-3/4 overflow-auto items-center bg-gray-200 justify-start gap-4 rounded-lg py-8 px-4 md:w-1/2">
+        <div class="w-3/4 flex flex-col gap-2 ">
+          <lable class="text-lg font-semibold ">Email: </lable>
+          <input type="text" readonly class="border-2 bg-gray-300 rounded-lg h-10 outline-none  px-2" id="emailEdit">
+          
+        </div>
+        <div class="w-3/4 flex flex-col gap-2 ">
+          <lable class="text-lg font-semibold ">Username: </lable>
+          <input type="text" readonly class="border-2 bg-gray-300 rounded-lg h-10 outline-none px-2" id="username">
+        
+        </div>
+        <div class="w-3/4 flex flex-col gap-2 ">
+          <lable class="text-lg font-semibold ">Name: </lable>
+          <input type="text" class="border-2 bg-gray-200 rounded-lg h-10 outline-none  px-2" id="fullName" placeholder="Your full name">
+          
+        </div>
+        <div class="w-3/4 flex flex-col gap-2 ">
+          <lable class="text-lg font-semibold ">Experience: </lable>
+          <input type="text" class="border-2 bg-gray-200 rounded-lg h-10 outline-none  px-2" id="experience" placeholder="eg 1 year">
+        </div>
+        <div class="w-3/4 flex flex-col gap-2 ">
+          <lable class="text-lg font-semibold ">Phone: </lable>
+          <input type="text" class="border-2 bg-gray-200 rounded-lg h-10 outline-none  px-2" id="phone" placeholder="9999999999">
+          
+        </div>
+        <div class="w-3/4 flex flex-col gap-2 ">
+          <lable class="text-lg font-semibold ">Service Charge: </lable>
+          <input type="text" class="border-2 bg-gray-200 rounded-lg h-10 outline-none  px-2" id="serviceCharge" placeholder="eg 400">
+          
+        </div>
+        
+        <div class="w-3/4 flex flex-col gap-2 ">
+          <label class="text-lg font-semibold " for="selectCity">Location</label>
+        <select class="border-2 bg-gray-200 rounded-lg h-10 outline-none  px-2" name="city" id="selectCity">
+          <option value="select">Select</option>
+          <option value="gorakhpur">Gorakhpur</option>
+          <option value="maharajganj">Maharajganj</option>
+          <option value="varanasi">Varanasi</option>
+          <option value="lucknow">Lucknow</option>
+          <option value="kushinagar">Kushinagar</option>
+        </select>
+          
+        </div>
+        <div class="flex gap-4 flex-wrap items-center justify-center w-3/4">
+          <button type="submit" class="w-20 px-4 py-2 bg-green-600 text-white rounded" type="submit" id="save-edit">Save</button>
+          <button class="w-20 px-4 py-2 bg-gray-500 text-white rounded" id="closeEditForm">Cancel</button>
+        </div>
+       </div>
+
+    </div>
+  <!-- <div class="grid w-full gap-8 px-4 pt-12 place-items-center md:grid-cols-2">
+
   <div class="h-64 w-64 rounded-full"><img class="object-cover bg-white rounded-full" src="/src/assets/img/circle-user-solid.png" alt="">
   </div>
  
-<div class="flex flex-col w-full h-full items-center justify-center gap-8">
-  <h1 class="text-4xl font-bold text-white">Name Here</h1>
+<div class="flex flex-col w-full h-full items-center justify-center gap-8 text-center md:items-start ">
+  <h1 class="text-4xl font-bold text-white w-full md:text-center md:pr-8">Name Here</h1>
 
-   <div class="flex flex-col items-center p-4 justify-evenly rounded-4xl w-[90%] h-full bg-white ">
+   <div class="flex flex-col items-center p-4 justify-evenly rounded-4xl w-[90%] h-full bg-white  ">
 
     
 
@@ -53,19 +125,24 @@
      <p class="flex gap-2 font-semibold">Email: <span class="text-gray-700">something@gmail.com</span></p>
    </div>
    <div class="w-4/5 overflow-hidden text-nowrap text-2xl ">
-    <p class="flex gap-2 font-semibold">DOB: <span class="text-gray-700">SomeValue</span></p>
+    <p class="flex gap-2 font-semibold">Username: <span class="text-gray-700">SomeValue</span></p>
    </div>
    <div class="w-4/5 overflow-hidden text-nowrap text-2xl ">
     <p class="flex gap-2 font-semibold">Experience: <span class="text-gray-700">* Years</span></p>
    </div>
    <div class="w-4/5 overflow-hidden text-nowrap text-2xl ">
-    <p class="flex gap-2 font-semibold">Phone: <span class="text-gray-700">9999999999</span></p>
+    <p class="flex gap-2 font-semibold">Phone: <span class="text-gray-700">+91 9999999999</span></p>
+   </div>
+   <div class="w-4/5 overflow-hidden text-nowrap text-2xl ">
+    <p class="flex gap-2 font-semibold">Service Charge: <span class="text-gray-700">400</span></p>
    </div>
    <div class="w-4/5  overflow-hidden text-nowrap text-2xl ">
-    <p class="flex gap-2 font-semibold">Address: <span class="text-gray-700">Street, colony, dist,</span></p>
+    <p class="flex gap-2 font-semibold">Location: <span class="text-gray-700">Street, colony, dist,</span></p>
    </div>
+   <button class="pt-8 hover:underline cursor-pointer font-semibold capitalize" id="edit">Edit details</button>
  </div>
   </div>
+  </div> -->
 </div>
 
 
@@ -73,7 +150,7 @@
 
 
 
-<div class="bg-white w-[90%] h-full rounded-4xl flex flex-col items-center justify-start pb-8 ">
+<div class="bg-white w-[90%] h-max rounded-4xl flex flex-col items-center justify-start pb-8 ">
 
   <div class=" flex justify-between p-4 items-start w-full h-max">
     <div tabindex="0" class="w-1/3 h-12 flex hover:bg-gray-200 rounded-4xl cursor-pointer items-center justify-center focus:bg-gray-400 " id="requests"><p class=" font-bold sm:text-2xl " >Requests</p>
@@ -114,13 +191,13 @@
 </div>
 
 
-<div class="w-full h-full flex flex-col items-center justify-center gap-8" id="history_section">
-<div class="bg-green-500 w-[90%] h-max flex items-start rounded-4xl px-8 py-4 flex-col">
+<div class="w-full h-full flex flex-col items-center justify-start gap-8" id="history_section">
+<!-- <div class="bg-green-500 w-[90%] h-max flex items-start rounded-4xl px-8 py-4 flex-col">
 <p class="font-bold text-3xl capitalize ">username</p>
 <p class=" capitalize text-gray-800">user address comes here</p>
 <p class="font-bold">+91-999999999</p>
 
-</div>
+</div> -->
 </div>
 
 

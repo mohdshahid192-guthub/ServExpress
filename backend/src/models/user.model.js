@@ -28,7 +28,7 @@ const userSchema = new Schema({
     location:{
       type: String,
       trim: true,
-      capitalized: true
+      enum: ["lucknow", "gorakhpur", "varanasi", "kushinagar", "maharajganj"]
     },
     password:{
       type: String,
@@ -40,7 +40,8 @@ const userSchema = new Schema({
       pattern: "^[0-9]{10}$"
     },
     avatar:{
-      type: String
+      url: String,
+      public_id: String
     },
 
     refreshToken:{
@@ -57,6 +58,9 @@ const userSchema = new Schema({
     type: Number
    },
    category: {
+    type: String
+   },
+   experience: {
     type: String
    }
 }, 

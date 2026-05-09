@@ -1,4 +1,8 @@
+
 import "./style.css"
+
+
+
 
 function loginStatus() {
   return fetch("/api/v1/users/check-user-login")
@@ -112,9 +116,7 @@ logo.addEventListener("click", () => {
 });
 
 
-const renderProfessional = () => {
-  return fetch("/api/v1/users/render-professional");
-};
+
 
 const electricianSection = document.querySelector("#electrician-section");
 const plumberSection = document.querySelector("#plumber-section");
@@ -122,22 +124,26 @@ const painterSection = document.querySelector("#painter-section");
 const carpenterSection = document.querySelector("#carpenter-section");
 const logoutUser = document.querySelector("#logOut")
 const logINUser = document.querySelector("#logIn")
-// Attach to window, not div
 
 
+function getSelectedCity() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("city"); // null if not present
+}
 
+function renderProfessional(city){
+  return fetch("/api/v1/users/render-professional", 
+    {method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({city})
 
-
-
- 
-
-  renderProfessional()
-    .then(res => res.json())
+    }
+  )
+ .then(res => res.json())
     .then(data => {
-      
-        for (let i = 0; i < data.message.length; i++) {
-        
-          if (data.message[i]) {
+    
+       for (let i = 0; i < data.message.length; i++) {
+          if (data.message[i]?.avatar) {
             const div = document.createElement("div");
             div.classList.add(
               "bg-white", "w-40", "h-max", "rounded-4xl", "flex",
@@ -146,7 +152,9 @@ const logINUser = document.querySelector("#logIn")
             );
              
             div.innerHTML = `
-              <img class="object-cover h-3/4 w-full" src=" ${data.message[i]?.avatar}" alt="">
+            <div class ="grid place-items-center w-3/4 h-3/4 rounded-full border-2 border-gray-800 p-1 mt-4">
+              <img class="rounded-full w-full h-full" src=" ${data.message[i]?.avatar?.url}" alt="">
+              </div>
               <div class="flex flex-col text-center my-3">
                 <p class="font-bold text-xl">${data.message[i]?.fullName}</p>
                 <p class="text-sm">Rs 300 - 400</p>
@@ -187,16 +195,48 @@ const logINUser = document.querySelector("#logIn")
             }
            }
 
-           
-    
-         
-        }else{
-          return
         }
         }
         
     })
     .catch(err => console.error("Error fetching professionals:", err));
+  }
+document.addEventListener("DOMContentLoaded", () => {
+  const selectLocation = document.getElementById("selectCity");
+  
+  const savedCity = getSelectedCity()
+
+  if ( savedCity) {
+    
+    selectLocation.value = savedCity.toLowerCase();
+
+        renderProfessional(savedCity)
+  }else{
+    selectLocation.value = "select"
+    renderProfessional("select")
+  }
+
+    selectLocation.addEventListener("change", (e) => {
+      const city = e.target.value;
+      const url = new URL(window.location.href);
+      
+      if (city === "select" || !city) {
+        url.searchParams.delete("city");
+      } else {
+        url.searchParams.set("city", city);
+      }
+      
+      window.location.href = url.toString();
+    });
+  
+});
+  // renderProfessional()
+  //   .then(res => res.json())
+  //   .then(data => {
+      
+       
+  //   })
+  //   .catch(err => console.error("Error fetching professionals:", err));
 
 
     loginStatus().then(res => res.json()).then(data => {

@@ -16,7 +16,7 @@ connectDB()
     
     
   })
-     // 🔔 Start cron jobs after DB is connected
+ 
     cron.schedule("0 * * * *", async () => {
       const now = new Date();
 
@@ -26,7 +26,7 @@ connectDB()
       // 2. Mark expired pending orders as missed
       await Order.updateMany(
         { status: "pending", expiresAt: { $lte: now } },
-        { $set: { status: "missed", cleanupAt: new Date(Date.now() + 15*24*60*60*1000) } }
+        { $set: { status: "missed", cleanupAt: new Date(Date.now() + 28*24*60*60*1000) } }
       );
 
       // 3. Delete missed orders after 15 days
