@@ -81,12 +81,107 @@ requests.classList.remove("bg-gray-400")
 
 requests.addEventListener("click", () => {
   showSection(request_sec);
+  
 })
 pendings.addEventListener("click", () => {
-  showSection(pending_sec)
+  showSection(pending_sec);
+
+
+  fetch("/api/v1/orders/pending", {credentials: "include"})
+.then(res => res.json())
+.then(data => {
+ pending_sec.forEach(Element => Element.innerHTML = "");
+   if (data.message.length < 1) {
+    pending_sec.forEach(Element => Element.innerHTML = "No Work to do")
+  }
+  
+    for(let i = 0; i < data.message.length; i++){
+      const div = document.createElement("div")
+      div.classList.add("bg-slate-700", "w-[90%]", "h-max", "flex", "items-start", "rounded-4xl", "px-8", "py-4", "flex-col")
+      div.innerHTML = `<p class="font-bold text-3xl capitalize text-white">${data.message[i]?.customerDetails?.username}</p>
+<p class=" capitalize text-white">user address comes here</p>
+<p class="font-bold capitalize text-white">+91-${data.message[i]?.customerDetails?.phone}</p>`
+
+div.addEventListener("click", () => {
+
+ if (document.getElementById("otp-section")) {
+  return
+ }
+
+  const otpSection = document.createElement("form")
+
+   otpSection.id = "otp-section";
+  otpSection.classList.add("w-full", "flex", "gap-2", "justify-start", "items-center", "pt-4")
+
+  otpSection.innerHTML = ` <label class="font-semibold text-white " for="otp">OTP: </label>
+  <input class="border-b-2 border-white outline-0 caret-white text-white" type="text" id="otp">
+  <button class="rounded-full w-20 h-12 border-2 border-white text-white capitalize font-bold hover:bg-white hover:text-black cursor-pointer" id="Otp-submit">Submit</button>`
+
+  
+  const status = "served";
+  const orderId = data.message[i]?._id
+
+  otpSection.addEventListener("submit", (e) => {
+    e.preventDefault()
+    const otp = otpSection.querySelector("#otp").value;
+ fetch("/api/v1/orders/pending-to-served", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({otp, status, orderId})
+  }).then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      window.location.reload()
+    }
+    
+  })
+
+  })
+ 
+
+  div.appendChild(otpSection)
 })
+
+pending_sec.forEach(Element => Element.appendChild(div))
+    }
+});
+
+});
+
+
 history.addEventListener("click", () => {
   showSection(history_sec)
+
+  fetch("/api/v1/orders/history", {credentials: "include"})
+.then(res => res.json())
+.then(data => {
+ history_sec.forEach(Element => Element.innerHTML = "")
+
+ if (data.message.length <1 ) {
+    history_sec.forEach(Element => Element.innerText = "No work History")
+ }
+  for(let i = 0; i < data.message.length; i++){
+  const div = document.createElement("div")
+
+  div.classList.add("bg-green-500" , "w-[90%]", "h-max", "flex" ,"items-start", "rounded-4xl", "px-8", "py-4", "flex-col")
+
+  
+
+div.innerHTML = `<p class="font-bold text-3xl capitalize ">${data.message[i].customerDetails?.username}</p>
+<p class="font-bold capitalize">Service Status: ${data.message[i]?.status}</p>
+<p class=" font-bold">OrderId: ${data.message[i]?._id} </p>
+`
+if (data.message[i].status === "missed") {
+    div.classList.replace("bg-green-500", "bg-red-500")
+    div.classList.add("text-gray-200")
+  }
+history_sec.forEach(Element => Element.appendChild(div))
+  }
+
+
+})
+.catch(error => console.log("cannot fetch history data", error)
+)
 })
 
 window.addEventListener("load",() => {
@@ -107,6 +202,7 @@ requests.classList.add("bg-gray-400")
 const editForm = document.querySelector("#edit-form");
 const modal = document.querySelector("#modal");
 const avatarPreview = document.querySelector("#avatarPreview");
+
 const profileContainer = document.querySelector("#profile-container");
  fetch("/api/v1/users/profile-details", {credentials: "include"})
  .then(res => res.json())
@@ -138,13 +234,13 @@ const profileContainer = document.querySelector("#profile-container");
     <p class="flex gap-2 font-semibold">Username: <span class="text-gray-700">${user?.username}</span></p>
    </div>
    <div class="w-4/5 overflow-hidden text-nowrap text-2xl ">
-    <p class="flex gap-2 font-semibold">Experience: <span class="text-gray-700">${user?.experience}</span></p>
+    <p class="flex gap-2 font-semibold" id = "experience">Experience: <span class="text-gray-700" >${user?.experience}</span></p>
    </div>
    <div class="w-4/5 overflow-hidden text-nowrap text-2xl ">
     <p class="flex gap-2 font-semibold">Phone: <span class="text-gray-700">+91 ${user?.phone}</span></p>
    </div>
    <div class="w-4/5 overflow-hidden text-nowrap text-2xl ">
-    <p class="flex gap-2 font-semibold">Service Charge: <span class="text-gray-700">${user?.serviceCharge}</span></p>
+    <p class="flex gap-2 font-semibold" id = "serviceCharge">Service Charge: <span class="text-gray-700" >${user?.serviceCharge}</span></p>
    </div>
    <div class="w-4/5  overflow-hidden text-nowrap text-2xl ">
     <p class="flex gap-2 font-semibold">Location: <span class="text-gray-700">${user?.location}</span></p>
@@ -152,6 +248,16 @@ const profileContainer = document.querySelector("#profile-container");
    <button class="pt-8 hover:underline cursor-pointer font-semibold capitalize" id="edit">Edit details</button>
  </div>
   </div>`
+
+  if (user?.accountType === "customer") {
+    document.getElementById("forProfessionalOnly").remove()
+    document.getElementById("experienceEdit").remove()
+    document.getElementById("serviceEdit").remove()
+  
+    div.querySelector("#experience").remove()
+    div.querySelector("#serviceCharge").remove()
+    
+  }
 
  document.querySelector("#emailEdit").setAttribute("placeholder", user?.email)
  document.querySelector("#username").setAttribute("placeholder", user?.username)
@@ -170,6 +276,7 @@ const profileContainer = document.querySelector("#profile-container");
   })
  
   profileContainer.appendChild(div)
+  
 }
 
   
@@ -294,92 +401,9 @@ div.querySelector("#reject-btn").addEventListener("click", () => {
 )
 
 
-fetch("/api/v1/orders/pending", {credentials: "include"})
-.then(res => res.json())
-.then(data => {
-
-   if (data.message.length < 1) {
-    pending_sec.forEach(Element => Element.innerHTML = "No Work to do")
-  }
-  
-    for(let i = 0; i < data.message.length; i++){
-      const div = document.createElement("div")
-      div.classList.add("bg-slate-700", "w-[90%]", "h-max", "flex", "items-start", "rounded-4xl", "px-8", "py-4", "flex-col")
-      div.innerHTML = `<p class="font-bold text-3xl capitalize text-white">${data.message[i]?.customerDetails?.username}</p>
-<p class=" capitalize text-white">user address comes here</p>
-<p class="font-bold capitalize text-white">+91-${data.message[i]?.customerDetails?.phone}</p>`
-
-div.addEventListener("click", () => {
-
- if (document.getElementById("otp-section")) {
-  return
- }
-
-  const otpSection = document.createElement("form")
-
-   otpSection.id = "otp-section";
-  otpSection.classList.add("w-full", "flex", "gap-2", "justify-start", "items-center", "pt-4")
-
-  otpSection.innerHTML = ` <label class="font-semibold text-white " for="otp">OTP: </label>
-  <input class="border-b-2 border-white outline-0 caret-white text-white" type="text" id="otp">
-  <button class="rounded-full w-20 h-12 border-2 border-white text-white capitalize font-bold hover:bg-white hover:text-black cursor-pointer" id="Otp-submit">Submit</button>`
-
-  
-  const status = "served";
-  const orderId = data.message[i]?._id
-
-  otpSection.addEventListener("submit", (e) => {
-    e.preventDefault()
-    const otp = otpSection.querySelector("#otp").value;
- fetch("/api/v1/orders/pending-to-served", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({otp, status, orderId})
-  }).then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      window.location.reload()
-    }
-    
-  })
-
-  })
- 
-
-  div.appendChild(otpSection)
-})
-
-pending_sec.forEach(Element => Element.appendChild(div))
-    }
-});
 
 
-fetch("/api/v1/orders/history", {credentials: "include"})
-.then(res => res.json())
-.then(data => {
 
-  for(let i = 0; i < data.message.length; i++){
-  const div = document.createElement("div")
-
-  div.classList.add("bg-green-500" , "w-[90%]", "h-max", "flex" ,"items-start", "rounded-4xl", "px-8", "py-4", "flex-col")
-
-  
-
-div.innerHTML = `<p class="font-bold text-3xl capitalize ">${data.message[i].customerDetails?.username}</p>
-<p class="font-bold capitalize">Service Status: ${data.message[i]?.status}</p>
-<p class=" font-bold">OrderId: ${data.message[i]?._id} </p>
-`
-if (data.message[i].status === "missed") {
-    div.classList.replace("bg-green-500", "bg-red-500")
-    div.classList.add("text-gray-200")
-  }
-history_sec.forEach(Element => Element.appendChild(div))
-  }
-
-
-})
-.catch(error => console.log("cannot fetch history data", error)
-)
 
 
 document.getElementById("closeEditForm").addEventListener("click", () => {
@@ -391,10 +415,12 @@ document.getElementById("closeEditForm").addEventListener("click", () => {
 const saveEditForm = document.getElementById("save-edit");
 saveEditForm.addEventListener("click", (e) => {
   e.preventDefault();
-  const experience = document.querySelector("#experience").value;
+  const experience = document.querySelector("#experience")?.value || ""
+  const serviceCharge = document.querySelector("#serviceCharge")?.value || ""
+
   const fullName = document.querySelector("#fullName").value;
   const phone = document.querySelector("#phone").value;
-  const serviceCharge = document.querySelector("#serviceCharge").value;
+ 
   const cityValue = document.querySelector("#selectCity").value;
  
   

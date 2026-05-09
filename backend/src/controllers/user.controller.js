@@ -293,7 +293,8 @@ const getProfileDetails = asyncHandler(async (req, res) => {
       location: 1,
       experience: 1,
       category: 1,
-      avatar: 1
+      avatar: 1,
+      accountType: 1
     }}
   ]);
 
