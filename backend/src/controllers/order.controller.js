@@ -72,6 +72,7 @@ const getOrderDetails = asyncHandler(async(req, res) => {
       as: "professionalDetails"
     }
   },
+  {$unwind: "$professionalDetails"},
   {
    $project: {
     _id: 1,
@@ -81,6 +82,9 @@ const getOrderDetails = asyncHandler(async(req, res) => {
     "professionalDetails._id": 1,
     "professionalDetails.fullName": 1,
     "professionalDetails.serviceCharge": 1,
+    "professionalDetails.phone": 1,
+    "professionalDetails.category": 1,
+    "professionalDetails.location": 1,
     "professionalDetails.avatar": 1,
     
 

@@ -143,7 +143,7 @@ function renderProfessional(city){
     .then(data => {
     
        for (let i = 0; i < data.message.length; i++) {
-          if (data.message[i]?.avatar) {
+          if (data.message[i]?.avatar && data.message[i]?.serviceCharge) {
             const div = document.createElement("div");
             div.classList.add(
               "bg-white", "w-40", "h-max", "rounded-4xl", "flex",
@@ -157,7 +157,7 @@ function renderProfessional(city){
               </div>
               <div class="flex flex-col text-center my-3">
                 <p class="font-bold text-xl">${data.message[i]?.fullName}</p>
-                <p class="text-sm">Rs 300 - 400</p>
+                <p class="text-sm font-semibold">Rs ${data.message[i]?.serviceCharge}</p>
                 <p>Rating</p>
               </div>
             `;

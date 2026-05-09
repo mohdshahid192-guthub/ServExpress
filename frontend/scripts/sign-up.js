@@ -31,13 +31,14 @@ userRegister.addEventListener("submit", (e) => {
 
  const username = document.querySelector("#username").value;
   const email = document.querySelector("#email").value;
+  const phone = document.querySelector("#phone").value;
   const password = document.querySelector("#password").value;
   const accountType = "customer"
 
   fetch("/api/v1/users/register", {
     method: "POST",
     headers:{ "Content-Type": "application/json"},
-    body: JSON.stringify({ username, email, password, accountType})
+    body: JSON.stringify({ username, email, password, accountType, phone})
   })
   .then(res => res.json())
   .then(data => {

@@ -34,15 +34,17 @@ const registerUser = asyncHandler(async (req, res) => {
    
    
   const {username, email, password, accountType, phone} = req.body
+  console.log(phone);
   
-  if ([username, email, password, accountType].some((field) => field?.trim() === "" )) {
+  if ([username, email, password, accountType, phone].some((field) => field?.trim() === "" )) {
     throw new ApiError(400, "Please enter the required fields")
   }
-if (accountType === "professional") {
-  if (!phone) {
-    throw new ApiError(404, "phone number is required")
-  }
+const phoneNumber = parseInt(phone, 10)
+
+if (isNaN(phoneNumber)) {
+  throw new ApiError(404, "Please Enter a valid Phone Number")
 }
+
  const existedUser = await User.findOne({$or: [{email}, {username}]})
 
  if (existedUser) {
@@ -54,7 +56,7 @@ if (accountType === "professional") {
   email,
   password,
   accountType,
-  phone: parseInt(phone)
+  phone: phoneNumber
  })
 
 
@@ -358,7 +360,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     const serviceChargeValue = parseInt(serviceCharge, 10);
     if (!isNaN(serviceChargeValue)) updateData.serviceCharge = serviceChargeValue;
   }
-  if (cityValue && cityValue.trim() !== "") {
+  if (cityValue && cityValue.trim() !== "" && cityValue.trim() !== "select") {
     updateData.location = cityValue.trim();
   }
 
