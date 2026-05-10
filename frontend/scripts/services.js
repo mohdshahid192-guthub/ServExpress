@@ -1,11 +1,12 @@
 import "../src/style.css"
 
 
-function loadProfessionals(category) {
+
+function loadProfessionals(category, location) {
   return fetch("/api/v1/users/services-section", {
     method: "POST",
     headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({category})
+    body: JSON.stringify({category, location})
   });
 }
 
@@ -13,10 +14,10 @@ const container = document.querySelector("#container")
 
 window.addEventListener("DOMContentLoaded", () => {
   const category = localStorage.getItem("selectedCategory")
-  
+  const location = localStorage.getItem("location")
   document.getElementById("category").innerText = category
   
- loadProfessionals(category).then(res => res.json())
+ loadProfessionals(category, location).then(res => res.json())
  .then(data => {
    
   for(let i = 0 ; i < data.message.length; i++){

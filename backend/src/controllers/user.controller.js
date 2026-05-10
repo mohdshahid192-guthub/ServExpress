@@ -209,8 +209,6 @@ if (!token) {
 const professionalCardShowDown = asyncHandler(async (req, res, next) => {
   const location = req.body.city
 
- 
-  
   
   const professional = await User.aggregate([
   {
@@ -252,14 +250,15 @@ const professionalForBooking = asyncHandler(async (req, res) => {
 
 const professionalWithCategory = asyncHandler(async (req, res) => {
 
-  const {category} = req.body
+  const {category, location} = req.body
 
 const normalizedCategory = category.toLowerCase().replace(/s$/, "");
  
  const professional = await User.aggregate([
   
   {$match: {accountType: "professional",
-    category: normalizedCategory
+    category: normalizedCategory,
+    location
   } },
   {$project: {
     _id: 1, 

@@ -32,32 +32,7 @@ user.forEach(Element => {
   })
 })
 
-function goToServices(section){
-  localStorage.setItem("selectedCategory", section)
 
-    window.location.href = "./structures/services.html"
-
-}
-
-
-
-const electricianBucket = document.querySelector("#electrician-bucket")
-const plumberBucket = document.querySelector("#plumber-bucket")
-const painterBucket = document.querySelector("#painter-bucket")
-const carpenterBucket = document.querySelector("#carpenter-bucket")
-
-electricianBucket.addEventListener("click", () => {
-  goToServices("Electricians")
-})
-plumberBucket.addEventListener("click", () => {
-  goToServices("Plumbers")
-})
-carpenterBucket.addEventListener("click", () => {
-  goToServices("Carpenters")
-})
-painterBucket.addEventListener("click", () => {
-  goToServices("Painters")
-})
 
 const menu = document.getElementById("menu");
 const sidebar = document.querySelector("#sidebar");
@@ -131,8 +106,8 @@ function getSelectedCity() {
   return params.get("city"); // null if not present
 }
 
-function renderProfessional(city){
-  return fetch("/api/v1/users/render-professional", 
+async function  renderProfessional(city){
+  return await fetch("/api/v1/users/render-professional", 
     {method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({city})
@@ -163,6 +138,18 @@ function renderProfessional(city){
             `;
            
             div.addEventListener("click", () => {
+
+               const savedCity = getSelectedCity()
+
+             if (!savedCity || savedCity === "select") {
+              if (selectLocation) {
+                selectLocation.scrollIntoView({behavior: "smooth", block: "center"})
+              selectLocation.focus();
+               selectLocation.classList.add("border-2", "border-red-500");
+                }
+              return
+             }
+              
               localStorage.setItem("id", data.message[i]?._id)
               window.location.href = "/structures/booking.html"
   
@@ -201,8 +188,10 @@ function renderProfessional(city){
     })
     .catch(err => console.error("Error fetching professionals:", err));
   }
-document.addEventListener("DOMContentLoaded", () => {
+
+
   const selectLocation = document.getElementById("selectCity");
+document.addEventListener("DOMContentLoaded", () => {
   
   const savedCity = getSelectedCity()
 
@@ -259,7 +248,7 @@ async function logOutUser() {
     });
 
     const data = await res.json();
-    console.log(data);
+   
     
     if (data.success) {
       // Clear client-side storage
@@ -289,3 +278,41 @@ document.getElementById("logIn").addEventListener("click", () => {
   window.location.href = "../structures/login.html"
 })
 
+
+function goToServices(section){
+  localStorage.setItem("selectedCategory", section)
+ 
+ const savedCity = getSelectedCity()
+
+if (!savedCity || savedCity === "select") {
+  if (selectLocation) {
+    selectLocation.scrollIntoView({behavior: "smooth", block: "center"})
+    selectLocation.focus();
+    selectLocation.classList.add("border-2", "border-red-500");
+  }
+  return
+}
+   localStorage.setItem("location", savedCity)
+    window.location.href = "./structures/services.html"
+
+}
+
+
+
+const electricianBucket = document.querySelector("#electrician-bucket")
+const plumberBucket = document.querySelector("#plumber-bucket")
+const painterBucket = document.querySelector("#painter-bucket")
+const carpenterBucket = document.querySelector("#carpenter-bucket")
+
+electricianBucket.addEventListener("click", () => {
+  goToServices("Electricians")
+})
+plumberBucket.addEventListener("click", () => {
+  goToServices("Plumbers")
+})
+carpenterBucket.addEventListener("click", () => {
+  goToServices("Carpenters")
+})
+painterBucket.addEventListener("click", () => {
+  goToServices("Painters")
+})

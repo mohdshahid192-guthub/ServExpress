@@ -16,10 +16,8 @@ const orderPlace = asyncHandler(async (req, res) => {
   }
 
 
-
-  
-     if (userId === professionalId) {
-      throw new ApiError(400, "You can not send service request to Yourself")
+     if (userId == professionalId) {
+      throw new ApiError(405, "You can not send service request to Yourself")
      }
       const existingOrder = await Order.findOne({
     customer: userId,

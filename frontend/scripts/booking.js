@@ -21,8 +21,8 @@ getBookingDetails(_id).then(res => res.json())
     const div = document.createElement("div")
      div.classList.add("flex", "flex-col", "items-center" ,"justify-center", "w-full", "h-max", "gap-4", "px-4", "py-12", "sm:grid", "sm:grid-cols-2", "sm:place-items-center")
       
-    div.innerHTML = `<div class="flex md:justify-start w-full  justify-center md:pl-8 h-full items-center">
-    <div class="w-60 h-60 rounded-sm bg-white md:place-items-stretch">
+    div.innerHTML = `<div class="flex md:justify-center w-full  justify-center md:pl-8 h-full items-center">
+    <div class="w-60 h-60 rounded-sm bg-white ">
       <img class="p-2 w-full h-full object-cover bg-center bg-no-repeat" src="${avatarSrc}" alt="Professional-picture">
     </div>
     </div>
@@ -56,8 +56,22 @@ getBookingDetails(_id).then(res => res.json())
         body: JSON.stringify({professionalId}),
         credentials: "include"
 
-      }).then(res => res.json())
+      }).then(res => {
+        if (res.status === 401) {
+          localStorage.removeItem("token");
+          window.location.href = "./login.html"
+        }
+        if (res.status  === 400) {
+          alert("Order Already Placed")
+        }
+        if (res.status  === 405) {
+          alert("You are sending booking request to Yourself")
+        }
+
+        return res.json()
+      })
       .then(data => {
+      
         if (data.success) {
           bookingBtn.innerText = "Requested"
           bookingBtn.classList.replace("bg-amber-300", "bg-white")
@@ -65,12 +79,18 @@ getBookingDetails(_id).then(res => res.json())
         }
         
       })
+      .catch((error) => {
+    console.log("Network error occured" , error.message);
+    
+      })
        
      })
 
 })
-.catch(error => console.log("Unable to place order", error)
-)
+.catch(err => {
+  console.log("cannot load professional profile");
+  
+});
 
 
 
