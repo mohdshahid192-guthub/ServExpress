@@ -444,6 +444,7 @@ document.getElementById("closeEditForm").addEventListener("click", () => {
 const saveEditForm = document.getElementById("save-edit");
 saveEditForm.addEventListener("click", (e) => {
   e.preventDefault();
+
   const experience = document.querySelector("#experience")?.value || ""
   const serviceCharge = document.querySelector("#serviceCharge")?.value || ""
 
@@ -451,7 +452,7 @@ saveEditForm.addEventListener("click", (e) => {
   const phone = document.querySelector("#phone").value;
  
   const cityValue = document.querySelector("#selectCity").value;
-  const category = document.querySelector("#category").value;
+  const category = document.querySelector("#category")?.value || "";
  
   
 
