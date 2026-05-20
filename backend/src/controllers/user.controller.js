@@ -34,21 +34,22 @@ const registerUser = asyncHandler(async (req, res) => {
    
    
   const {username, email, password, accountType, phone} = req.body
-  console.log(phone);
+  
+
   
   if ([username, email, password, accountType, phone].some((field) => field?.trim() === "" )) {
-    throw new ApiError(400, "Please enter the required fields")
+    throw new ApiError(402, "Please enter the required fields")
   }
-const phoneNumber = parseInt(phone, 10)
+const phoneNumber = Number(phone)
 
-if (isNaN(phoneNumber)) {
+if (isNaN(phoneNumber) || phoneNumber.toString().length !== 10) {
   throw new ApiError(404, "Please Enter a valid Phone Number")
 }
 
  const existedUser = await User.findOne({$or: [{email}, {username}]})
 
  if (existedUser) {
-  throw new ApiError(409, "User already exist")
+  throw new ApiError(422, "User already exist")
  }
 
  const user = await User.create({
@@ -62,12 +63,12 @@ if (isNaN(phoneNumber)) {
 
 const createdUser = await User.findById(user._id).select("-password -refreshToken")
 if (!createdUser) {
-  throw new ApiError(500,"something went wrong while registration user");
+  throw new ApiError(501 ,"something went wrong while registration user");
   
 }
 
 
-return res.status(201).json(
+return res.status(200).json(
 new  ApiResponse(200, createdUser, "User registered succesfully"), {success: true}
 )
 
@@ -81,17 +82,17 @@ const userLogin = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    throw new ApiError(400, "Please enter the fields");
+    throw new ApiError(402, "Please enter the fields");
   }
 
   const existingUser = await User.findOne({ username });
   if (!existingUser) {
-    throw new ApiError(401, "User not found");
+    throw new ApiError(404, "User not found");
   }
 
   const validUser = await existingUser.isPasswordCorrect(password);
   if (!validUser) {
-    throw new ApiError(400, "Password is incorrect");
+    throw new ApiError(406, "Password is incorrect");
   }
 
 
@@ -341,7 +342,7 @@ return res.status(200).json(new ApiResponse(200, updateUser, "Avatar Uploaded Su
 })
 
 const updateUserProfile = asyncHandler(async (req, res) => {
-  const { fullName, experience, phone, serviceCharge, cityValue } = req.body;
+  const { fullName, experience, phone, serviceCharge, cityValue, category } = req.body;
 
   
   const updateData = {};
@@ -362,6 +363,9 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
   if (cityValue && cityValue.trim() !== "" && cityValue.trim() !== "select") {
     updateData.location = cityValue.trim();
+  }
+  if (category && category.trim() !== "" && category.trim() !== "select") {
+    updateData.category = category.trim();
   }
 
   // If nothing to update

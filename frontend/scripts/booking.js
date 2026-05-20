@@ -1,5 +1,16 @@
 import "../src/style.css"
 
+ function setPopUp (message){
+  
+  const popUpContainer = document.getElementById("pop-up-container")
+  const messageContainer = document.getElementById("message-container")
+  popUpContainer.classList.replace("hidden", "flex")
+  messageContainer.innerHTML = message
+  setTimeout(() => {
+   popUpContainer.classList.replace("flex", "hidden")
+   messageContainer.innerHTML = ``
+  }, 1500)
+}
 
  const _id = localStorage.getItem("id")
 
@@ -28,7 +39,7 @@ getBookingDetails(_id).then(res => res.json())
     </div>
     <div class="flex flex-col justify-center items-center w-full h-max mt-4 gap-4 text-nowrap">
       <h1 class="text-4xl font-bold ">${data.message?.fullName}</h1>
-      <div class="flex w-[60%] justify-evenly flex-wrap"><p class="text-xl font-light">Work Experience: </p> <p class="font-bold text-2xl">${data.message?.experience}-years</p></div>
+      <div class="flex w-[60%] justify-evenly flex-wrap"><p class="text-xl font-light">Work Experience: </p> <p class="font-bold text-2xl">${data.message?.experience}</p></div>
       <div class="flex w-[60%] items-center justify-evenly"><p class="text-lg font-light">Service charge:</p><p class="text-2xl font-bold">${data.message?.serviceCharge}</p></div>
       <div class="flex justify-center gap-2 w-[70%] items-center">
         <i class="fa-solid fa-star text-3xl text-amber-400"></i>
@@ -57,15 +68,22 @@ getBookingDetails(_id).then(res => res.json())
         credentials: "include"
 
       }).then(res => {
-        if (res.status === 401) {
-          localStorage.removeItem("token");
-          window.location.href = "./login.html"
-        }
-        if (res.status  === 400) {
-          alert("Order Already Placed")
-        }
-        if (res.status  === 405) {
-          alert("You are sending booking request to Yourself")
+        if (!res.ok) {
+          if (res.status === 401) {
+            localStorage.removeItem("token");
+            window.location.href = "./login.html"
+          }
+          if (res.status  === 400) {
+            const message = `<span>&#x274C;</span><p>Order already placed</p>`
+            setPopUp(message)
+          }
+          if (res.status  === 405) {
+           const message = `<span>&#x274C;</span><p>Can not send order to yourself</p>`
+            setPopUp(message)
+          }
+          const err = new Error("Booking Error")
+          err.isBookingError = true
+          throw err;
         }
 
         return res.json()
@@ -74,13 +92,18 @@ getBookingDetails(_id).then(res => res.json())
       
         if (data.success) {
           bookingBtn.innerText = "Requested"
-          bookingBtn.classList.replace("bg-amber-300", "bg-white")
-         
+          bookingBtn.classList.replace("bg-amber-300", "bg-green-500")
+          bookingBtn.classList.remove("hover:bg-amber-500")
+          const message = `<span class = "text-green-600 text-2xl font-bold">&#x2713;</span><p>Order placed</p>`
+          setPopUp(message)
         }
         
       })
-      .catch((error) => {
-    console.log("Network error occured" , error.message);
+      .catch((err) => {
+    if (!err.isBookingError) {
+      const message = `<span>&#x274C;</span><p>Check Your Internet</p>`
+            setPopUp(message)
+    }
     
       })
        
@@ -91,14 +114,6 @@ getBookingDetails(_id).then(res => res.json())
   console.log("cannot load professional profile");
   
 });
-
-
-
-
-
-
-
-
 
 
 

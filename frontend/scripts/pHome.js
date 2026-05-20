@@ -1,13 +1,24 @@
 
 import "../src/style.css"
 
+function setPopUp (message){
+  
+  const popUpContainer = document.getElementById("pop-up-container")
+  const messageContainer = document.getElementById("message-container")
+  popUpContainer.classList.replace("hidden", "flex")
+  messageContainer.innerHTML = message
+  setTimeout(() => {
+   popUpContainer.classList.replace("flex", "hidden")
+   messageContainer.innerHTML = ``
+  }, 1500)
+}
 
 
 
 const logo = document.getElementById("logo");
 
 logo.addEventListener("click", () => {
-  window.open("/home/home.html", "_self" );
+  window.open("../index.html", "_self" );
 });
 
 
@@ -88,12 +99,25 @@ pendings.addEventListener("click", () => {
 
 
   fetch("/api/v1/orders/pending", {credentials: "include"})
-.then(res => res.json())
+.then(res => {
+  if (!res.ok) {
+    if (res.status === 404) {
+       pending_sec.forEach(Element => Element.innerHTML = "No Work to do")
+    }
+    if (res.status === 406) {
+      const message = `<span>&#x274C;</span><p>Incorrect OTP</p>`
+       setPopUp(message)
+    }
+  }
+  return res.json()
+})
 .then(data => {
  pending_sec.forEach(Element => Element.innerHTML = "");
-   if (data.message.length < 1) {
-    pending_sec.forEach(Element => Element.innerHTML = "No Work to do")
-  }
+  
+ if (data.message.length < 1) {
+ pending_sec.forEach(Element => Element.innerHTML = "No pending work");
+  
+ }
   
     for(let i = 0; i < data.message.length; i++){
       const div = document.createElement("div")
@@ -232,6 +256,9 @@ const profileContainer = document.querySelector("#profile-container");
    </div>
    <div class="w-4/5 overflow-hidden text-nowrap text-2xl ">
     <p class="flex gap-2 font-semibold">Username: <span class="text-gray-700">${user?.username}</span></p>
+   </div>
+   <div class="w-4/5 overflow-hidden text-nowrap text-2xl ">
+    <p class="flex gap-2 font-semibold">Category: <span class="text-gray-700 capitalize">${user?.category}</span></p>
    </div>
    <div class="w-4/5 overflow-hidden text-nowrap text-2xl ">
     <p class="flex gap-2 font-semibold" id = "experience">Experience: <span class="text-gray-700" >${user?.experience}</span></p>
@@ -422,13 +449,14 @@ saveEditForm.addEventListener("click", (e) => {
   const phone = document.querySelector("#phone").value;
  
   const cityValue = document.querySelector("#selectCity").value;
+  const category = document.querySelector("#category").value;
  
   
 
   fetch("/api/v1/users/edit-profile", {
     method: "POST",
     headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({fullName, experience, phone, serviceCharge, cityValue}),
+    body: JSON.stringify({fullName, experience, phone, serviceCharge, cityValue, category}),
     credentials: "include"
   })
   .then(res => res.json())

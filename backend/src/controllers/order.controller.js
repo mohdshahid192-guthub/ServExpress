@@ -25,7 +25,8 @@ const orderPlace = asyncHandler(async (req, res) => {
     status: "requested"
   });
 
-  if (existingOrder) {
+
+  if (existingOrder && existingOrder.status === "requested") {
     throw new ApiError(400, "Order already placed");
   }
 
@@ -215,11 +216,11 @@ const pendingToServed = asyncHandler(async (req, res) => {
 
   const order = await Order.findOne({$and: [{_id: orderId}, {status: "pending"}]})
 if (!order) {
-  throw new ApiError(400, "Order not found")
+  throw new ApiError(404, "Order not found")
 }
 
   if (order.otp !== otp) {
-    throw new ApiError(400, "Otp is not correct")
+    throw new ApiError(406, "Otp is not correct")
   }
 
 if (status === "served") {
