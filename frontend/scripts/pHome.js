@@ -258,7 +258,7 @@ const profileContainer = document.querySelector("#profile-container");
     <p class="flex gap-2 font-semibold">Username: <span class="text-gray-700">${user?.username}</span></p>
    </div>
    <div class="w-4/5 overflow-hidden text-nowrap text-2xl ">
-    <p class="flex gap-2 font-semibold">Category: <span class="text-gray-700 capitalize">${user?.category}</span></p>
+    <p class="flex gap-2 font-semibold" id = "category">Category: <span class="text-gray-700 capitalize">${user?.category}</span></p>
    </div>
    <div class="w-4/5 overflow-hidden text-nowrap text-2xl ">
     <p class="flex gap-2 font-semibold" id = "experience">Experience: <span class="text-gray-700" >${user?.experience}</span></p>
@@ -284,6 +284,7 @@ const profileContainer = document.querySelector("#profile-container");
   
     div.querySelector("#experience").remove()
     div.querySelector("#serviceCharge").remove()
+    div.querySelector("#category").remove()
     
   }
 
