@@ -280,6 +280,7 @@ const profileContainer = document.querySelector("#profile-container");
     document.getElementById("forProfessionalOnly").remove()
     document.getElementById("experienceEdit").remove()
     document.getElementById("serviceEdit").remove()
+    document.getElementById("categoryEdit").remove()
   
     div.querySelector("#experience").remove()
     div.querySelector("#serviceCharge").remove()

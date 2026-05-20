@@ -48,8 +48,14 @@
 
   <header class="min-h-[calc(100vh-48px)] w-full relative bg-slate-700 overflow-hidden  grid place-items-center md:grid-cols-2  md:gap-y-10  gap-y-10 pt-20" id="header-section">
 
+   <div class="hover:animate-rightPop bg-blue-500 text-white p-4">
+  Responsive animation box
+</div>
+
+
+
     <!-- Headings section  -->
-    <div class="text-white w-full flex flex-col justify-center items-center col-start-1 h-70 md:pl-4 animate-sidePop" id="headings">
+    <div class="text-white w-full flex flex-col justify-center items-center col-start-1 h-70 md:pl-4 animate-leftPop" id="headings">
       <div class="flex w-full justify-center">
         <h1 class="text-5xl sm:text-6xl font-bold flex flex-col text-center gap-2 ">Book The <span
             class="">Professionals</span></h1>
@@ -60,7 +66,7 @@
       </div>
     </div>
  
-    <div class="w-full h-45 flex flex-col items-center justify-start md:justify-center gap-10 md:col-start-2 animate-sidePop " id="city">
+    <div class="w-full h-45 flex flex-col items-center justify-start md:justify-center gap-10 md:col-start-2 animate-rightPop md:animate-topPop " id="city">
 
       <!-- city selection -->
       <div class="text-black w-full h-10  mt-4 flex justify-center items-center" >
@@ -90,7 +96,7 @@
     </div>
     <!-- Grid Design area -->
     <div
-      class="grid grid-cols-2 gap-4 w-full h-full place-items-center px-10 py-10 md:grid-cols-3 md:col-start-1 md:col-span-1 animate-popUp" id="grid-section">
+      class="grid grid-cols-2 gap-4 w-full h-full place-items-center px-10 py-10 md:grid-cols-3 md:col-start-1 md:col-span-1 animate-bottomPop" id="grid-section">
 
 
       <div
@@ -124,7 +130,7 @@
     </div>
 
     <div
-      class="hidden md:flex col-start-2 row-start-2 text-white flex-col justify-center items-start w-full h-full px-[10%] gap-8 py-8 animate-sidePopOpp">
+      class="hidden md:flex col-start-2 row-start-2 text-white flex-col justify-center items-start w-full h-full px-[10%] gap-8 py-8 animate-rightPop">
 
       <h2 class="text-5xl font-bold">Steps to book services.</h2>
       <!-- user Guide but only at bigger screens -->
