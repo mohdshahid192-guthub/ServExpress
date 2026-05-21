@@ -352,6 +352,9 @@ const profileContainer = document.querySelector("#profile-container");
   } catch (err) {
     console.error("Upload failed:", err);
   }
+  finally{
+    
+  }
  })
 
 
@@ -443,7 +446,14 @@ document.getElementById("closeEditForm").addEventListener("click", () => {
 
 const saveEditForm = document.getElementById("save-edit");
 saveEditForm.addEventListener("click", (e) => {
-  e.preventDefault();
+  saveEditForm.innerHTML = `<div class="h-6 w-6 animate-spin rounded-full border-4  border-t-transparent"></div>
+`
+
+
+  
+   e.preventDefault();
+
+  
 
   const experience = document.querySelector("#experience")?.value || ""
   const serviceCharge = document.querySelector("#serviceCharge")?.value || ""
@@ -462,7 +472,10 @@ saveEditForm.addEventListener("click", (e) => {
     body: JSON.stringify({fullName, experience, phone, serviceCharge, cityValue, category}),
     credentials: "include"
   })
-  .then(res => res.json())
+  .then(res => {
+
+return res.json()
+    })
   .then(data => {
     if (data.success) {
       console.log("succefully Updated");
@@ -471,8 +484,9 @@ saveEditForm.addEventListener("click", (e) => {
   })
   .catch(error => console.log("error occured during saving", error)
   )
+  .finally(() => {
+    saveEditForm.innerHTML = `Save`
+  })
 
- 
-  
-  
+
 })

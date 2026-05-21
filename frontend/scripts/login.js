@@ -3,14 +3,16 @@ import "../src/style.css"
 
 const login = document.querySelector("#login")
 
-login.addEventListener("submit", (e) => {
-  e.preventDefault();
+login.addEventListener("click", (e) => {
 
-  const username = document.querySelector("#username").value;
+ e.preventDefault();
+
+ login.innerHTML = `<div class="h-6 w-6 animate-spin rounded-full border-4  border-t-transparent"></div>
+` 
+ const username = document.querySelector("#username").value;
 
   const password = document.querySelector("#password").value;
   
-
   fetch("/api/v1/users/login", {
     method: "POST",
     headers: {"Content-Type": "application/json"},
@@ -38,15 +40,22 @@ login.addEventListener("submit", (e) => {
 .then(data => {
   
   
+  console.log(data);
   
   if (data.success) {
+  
     
    window.location.href = "../index.html"
   }
+
 }).catch(err => {
    if (!err.isValidationError) {
-    document.getElementById("errors").innerText = "Check your Internet connection"
+    document.getElementById("errors").innerHTML = "Check your Internet connection"
    }
+})
+.finally(() => {
+ login.innerHTML = `Log In`
+
 })
 
 })
