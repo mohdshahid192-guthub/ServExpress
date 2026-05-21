@@ -446,14 +446,11 @@ document.getElementById("closeEditForm").addEventListener("click", () => {
 
 const saveEditForm = document.getElementById("save-edit");
 saveEditForm.addEventListener("click", (e) => {
-  saveEditForm.innerHTML = `<div class="h-6 w-6 animate-spin rounded-full border-4  border-t-transparent"></div>
-`
-
-
   
    e.preventDefault();
 
-  
+  saveEditForm.innerHTML = `<div class="h-6 w-6 animate-spin rounded-full border-4  border-t-transparent"></div>
+`
 
   const experience = document.querySelector("#experience")?.value || ""
   const serviceCharge = document.querySelector("#serviceCharge")?.value || ""
