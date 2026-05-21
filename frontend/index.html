@@ -241,7 +241,7 @@
 
     <!-- Feedback section -->
     <section
-      class="bg-gray-200 flex flex-col md:flex-row gap-4 p-4  w-full h-auto items-center justify-center md:px-10 md:gap-20 rounded-4xl shadow">
+      class="bg-gray-200 flex flex-col md:flex-row gap-4 p-4  w-full h-auto items-center justify-center md:px-10 md:gap-20 rounded-4xl shadow" id="feedback-section">
       <div class="flex flex-col justify-center items-center text-center gap-4">
         <h3 class="font-bold text-2xl border-b-4 border-amber-400">Help Us to improve!</h3>
 
@@ -250,7 +250,7 @@
         <p class="text-md text-gray-600 font-semibold">Do not forget to rate us.</p>
       </div>
 
-      <div class="w-[80%] h-max py-8 bg-white rounded-4xl shadow-2xl grid place-items-center md:w-[60%] lg:w-[40%]">
+      <div class="w-[80%] h-max py-8 bg-white rounded-4xl shadow-2xl grid place-items-center md:w-[60%] lg:w-[40%]" >
         <form class="flex flex-col justify-center items-center gap-4 w-[80%]" action="#">
           <h3 class="font-bold text-2xl">Feedback</h3>
           <div class="w-full flex flex-col justify-center items-center gap-4 pb-4">
@@ -277,39 +277,37 @@
       <div class="">
         <h4 class="font-bold text-lg capitalize border-b-2 border-amber-500">Quick Links</h4>
         <ul>
-          <li>Contact</li>
-          <li>Support</li>
-          <li>About</li>
+          <li  class="cursor-pointer hover:underline"><a href="">Contact</a></li>
+        <li class="cursor-pointer hover:underline"><a href="">Support</a></li>
+        <li class="cursor-pointer hover:underline"><a href="">About</a></li>
 
         </ul>
       </div>
 
       <div>
-        <h4 class="font-bold text-lg capitalize border-b-2 border-amber-500">another links</h4>
+        <h4 class="font-bold text-lg capitalize border-b-2 border-amber-500">For Customers</h4>
         <ul>
-          <li>link1</li>
-          <li>link2</li>
-          <li>link3</li>
-          <li>link4</li>
-          <li>link5</li>
+         <li class="cursor-pointer hover:underline"><a href="#main-content">Services</a></li>
+        <li class="cursor-pointer hover:underline"><a href="#feedback-section">Feedback</a></li>
+        <li class="cursor-pointer hover:underline"><a href="./structures/orders.html">Orders</a></li>
+         
         </ul>
       </div>
 
       <div>
-        <h4 class="font-bold text-lg capitalize border-b-2 border-amber-500">another links</h4>
+        <h4 class="font-bold text-lg capitalize border-b-2 border-amber-500">Account</h4>
         <ul>
-          <li>link1</li>
-          <li>link2</li>
-          <li>link3</li>
-          <li>link4</li>
-          <li>link5</li>
+          <li class="cursor-pointer hover:underline"><a href="./structures/sign-up.html">Register</a></li>
+        <li class="cursor-pointer hover:underline"><a href="./structures/login.html">Login</a></li>
+        
+         
         </ul>
       </div>
     </div>
     <!-- social media -->
     <div class=" w-full h-auto">
       <ul class="w-full h-auto flex justify-around flex-wrap gap-4">
-        <li class="w-10 h-10 bg-white rounded-4xl"><a href=""><img class="object-cover w-full h-full" src="/src/assets/img/logo.png" alt=""></a></li>
+        <li class="w-16 h-16"><a href="">Instagram</a></li>
         <li class="w-16 h-16"><a href=""></a>youtube</li>
         <li class="w-16 h-16"><a href=""></a>facebook</li>
         <li class="w-16 h-16"><a href=""></a>email</li>
